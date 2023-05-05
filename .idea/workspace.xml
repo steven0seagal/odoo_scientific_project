@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7c49fa78-b643-42cd-b456-8494ff9573b4" name="Changes" comment="kanban view patient" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2FBP3aKOhVP8fcdgQH1laCwrz9N" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/bartek/PycharmProjects/odoo_hospital_project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/odoo/addons/om_hospital/models" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/odoo/addons/scientific_project" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7c49fa78-b643-42cd-b456-8494ff9573b4" name="Changes" comment="" />
+      <created>1663962305272</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1663962305272</updated>
+      <workItem from="1663962306501" duration="23521000" />
+      <workItem from="1664206720265" duration="11355000" />
+      <workItem from="1664269012053" duration="155000" />
+      <workItem from="1671473322141" duration="6044000" />
+      <workItem from="1671551225337" duration="21000" />
+      <workItem from="1671742635594" duration="2191000" />
+      <workItem from="1672135484403" duration="66000" />
+      <workItem from="1683319731668" duration="1886000" />
+    </task>
+    <task id="LOCAL-00001" summary="Docker settings">
+      <created>1663968136871</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1663968136871</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Odoo conf file">
+      <created>1664010985506</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1664010985506</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Nginx and certbot configuration">
+      <created>1664011003214</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1664011003214</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Hospital - Patient table">
+      <created>1664015005231</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1664015005231</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Basic form to create and see patients">
+      <created>1664023414945</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1664023414945</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Form view">
+      <created>1664212836854</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1664212836854</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Docker compose db folder setting">
+      <created>1664212853194</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1664212853194</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Table search options">
+      <created>1664226041465</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1664226041465</updated>
+    </task>
+    <task id="LOCAL-00009" summary="kanban view patient">
+      <created>1664226951294</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1664226951294</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Docker settings" />
+    <MESSAGE value="Odoo conf file" />
+    <MESSAGE value="Nginx and certbot configuration" />
+    <MESSAGE value="Hospital - Patient table" />
+    <MESSAGE value="Basic form to create and see patients" />
+    <MESSAGE value="Form view" />
+    <MESSAGE value="Docker compose db folder setting" />
+    <MESSAGE value="Table search options" />
+    <MESSAGE value="kanban view patient" />
+    <option name="LAST_COMMIT_MESSAGE" value="kanban view patient" />
+  </component>
+</project>
