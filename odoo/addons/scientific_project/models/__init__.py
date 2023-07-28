@@ -1,1 +1,2 @@
-from . import project, task
+from . import project, task, document
+

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="project_action" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scientific.task</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new task
+            </p>
+        </field>
+    </record>
+
+    <!-- List view for tasks -->
+    <record model="ir.ui.view" id="project_task_list_view">
+        <field name="name">scientific.task.list</field>
+        <field name="model">scientific.task</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for creating and editing tasks -->
+    <record model="ir.ui.view" id="project_task_form_view">
+        <field name="name">scientific.task.form</field>
+        <field name="model">scientific.task</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="status"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <group>
+                        <field name="project_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for tasks -->
+    <record id="project_task_action" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scientific.task</field>
+
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new task
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu item for tasks -->
+    <menuitem id="project_task_menu" name="Tasks" parent="scientific_root" action="project_task_action"/>
+
+</odoo>

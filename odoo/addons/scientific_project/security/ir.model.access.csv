@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_scientific_project,scientific.project,model_scientific_project,"",1,1,1,1
 access_scientific_task,scientific.task,model_scientific_task,"",1,1,1,1
+access_scientific_document,scientific.document,model_scientific_document,"",1,1,1,1
+

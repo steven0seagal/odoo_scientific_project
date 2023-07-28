@@ -12,6 +12,19 @@
             </p>
         </field>
     </record>
+    <!--  View all pojects    -->
+
+    <record id="project_action_all" model="ir.actions.act_window">
+        <field name="name">All Projects</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scientific.project</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new scientific project
+            </p>
+        </field>
+    </record>
     <!-- List view for projects -->
     <record model="ir.ui.view" id="project_project_list_view">
         <field name="name">scientific.project.list</field>
@@ -22,9 +35,13 @@
                 <field name="name"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
+                <field name="status"/>
             </tree>
         </field>
     </record>
+
+
+
 
 <!-- Form view for creating and editing projects -->
     <record model="ir.ui.view" id="project_project_form_view">
@@ -33,17 +50,20 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
-                <group>
-                    <field name="name"/>
-                    <field name="start_date"/>
-                    <field name="end_date"/>
-                </group>
-                <group>
-                    <field name="description"/>
-                </group>
-                <group>
-                    <field name="tasks" widget="one2many_list"/>
-                </group>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="status"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <group>
+                        <field name="tasks" widget="one2many_list"/>
+                    </group>
+                </sheet>
             </form>
         </field>
     </record>
@@ -59,7 +79,8 @@
                 <field name="start_date"/>
                 <field name="end_date"/>
                 <field name="user_id"/>
-                <field name="state"/>
+                <field name="status"/>
+
             </tree>
         </field>
     </record>
@@ -82,7 +103,7 @@
                 <group>
                     <field name="project_id"/>
                     <field name="user_id"/>
-                    <field name="state"/>
+                    <field name="status"/>
                 </group>
             </form>
         </field>
@@ -92,6 +113,7 @@
               name="Scientific"
               sequence="10"/>
 
+
     <menuitem id="scientific_projects_root"
               name="Projects"
               parent="scientific_root"
@@ -100,7 +122,8 @@
     <menuitem id="scientific_project"
               name="Project"
               parent="scientific_root"
-              action="project_action"
+              action="project_action_all"
               sequence="10"/>
+
 
 </odoo>

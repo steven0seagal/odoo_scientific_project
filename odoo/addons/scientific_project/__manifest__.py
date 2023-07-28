@@ -10,7 +10,9 @@
     'depends' : [],
     'data' : [
         'security/ir.model.access.csv',
-        'views/project.xml'
+        'views/project.xml',
+        'views/task.xml',
+        'views/document.xml',
     ],
     'demo' : [],
     'qweb' : [],
