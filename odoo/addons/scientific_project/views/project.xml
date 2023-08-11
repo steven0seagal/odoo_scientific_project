@@ -5,7 +5,7 @@
         <field name="name">Scientific</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">scientific.project</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">kanban,tree,form,calendar</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new scientific project
@@ -18,7 +18,7 @@
         <field name="name">All Projects</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">scientific.project</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">kanban,tree,form,calendar</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new scientific project
@@ -40,7 +40,45 @@
         </field>
     </record>
 
+    <!-- Kanban view for projects and set default grouping by status   -->
+    <record model="ir.ui.view" id="project_project_kanban_view">
+        <field name="name">scientific.project.kanban</field>
+        <field name="model">scientific.project</field>
+        <field name="type">kanban</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_card_header">
+                                    <div class="oe_kanban_card_header_title">
+                                        Name:
+                                        <field name="name"/>
+                                    </div>
+                                    <div class="oe_kanban_card_header_status">
+                                        <field name="status" />
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_card_content">
+                                    <field name="description"/>
+                                </div>
+                                <div class="oe_kanban_card_footer">
+                                    <div class="oe_kanban_card_footer_start_date">
+                                        <field name="start_date"/>
+                                    </div>
+                                    <div class="oe_kanban_card_footer_end_date">
+                                        <field name="end_date"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
 
+    </record>
 
 
 <!-- Form view for creating and editing projects -->
@@ -60,70 +98,40 @@
                     <group>
                         <field name="description"/>
                     </group>
-                    <group>
-                        <field name="tasks" widget="one2many_list"/>
-                    </group>
+<!--                    <group>-->
+<!--                        <field name="tasks" widget="one2many_list"/>-->
+<!--                    </group>-->
                 </sheet>
             </form>
         </field>
     </record>
-
-    <!-- List view for tasks -->
-    <record model="ir.ui.view" id="project_task_list_view">
-        <field name="name">scientific.task.list</field>
-        <field name="model">scientific.task</field>
-        <field name="type">tree</field>
+    <!-- Calendar View with default view on months -->
+    <record id="view_project_calendar" model="ir.ui.view">
+        <field name="name">scientific.project.calendar</field>
+        <field name="model">scientific.project</field>
         <field name="arch" type="xml">
-            <tree>
+            <calendar string="Projects" date_start="start_date" date_stop="end_date" mode="month" create="true" color="status">
                 <field name="name"/>
-                <field name="start_date"/>
-                <field name="end_date"/>
-                <field name="user_id"/>
-                <field name="status"/>
 
-            </tree>
+            </calendar>
         </field>
+
     </record>
 
-    <!-- Form view for creating and editing tasks -->
-    <record model="ir.ui.view" id="project_task_form_view">
-        <field name="name">scientific.task.form</field>
-        <field name="model">scientific.task</field>
-        <field name="type">form</field>
-        <field name="arch" type="xml">
-            <form>
-                <group>
-                    <field name="name"/>
-                    <field name="start_date"/>
-                    <field name="end_date"/>
-                </group>
-                <group>
-                    <field name="description"/>
-                </group>
-                <group>
-                    <field name="project_id"/>
-                    <field name="user_id"/>
-                    <field name="status"/>
-                </group>
-            </form>
-        </field>
+
+
+
+    <!--Popout window for creating projects    -->
+    <record model="ir.actions.act_window" id="project_action_popout">
+        <field name="name">Create Project</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scientific.project</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
     </record>
 
-    <menuitem id="scientific_root"
-              name="Scientific"
-              sequence="10"/>
 
 
-    <menuitem id="scientific_projects_root"
-              name="Projects"
-              parent="scientific_root"
-              sequence="10"/>
-
-    <menuitem id="scientific_project"
-              name="Project"
-              parent="scientific_root"
-              action="project_action_all"
-              sequence="10"/>
 
 
 </odoo>

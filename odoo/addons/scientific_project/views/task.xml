@@ -5,7 +5,7 @@
         <field name="name">Tasks</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">scientific.task</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">tree,kanban,form,calendar</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new task
@@ -53,13 +53,73 @@
         </field>
     </record>
 
+<!-- Kanban view for tasks and set default grouping by status -->
+    <record model="ir.ui.view" id="project_task_kanban_view">
+        <field name="name">scientific.task.kanban</field>
+        <field name="model">scientific.task</field>
+        <field name="type">kanban</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_card_header">
+                                    <div class="oe_kanban_card_header_title">
+                                        Name:
+                                        <field name="name"/>
+                                    </div>
+                                    <div class="oe_kanban_card_header_status">
+                                        <field name="status" />
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_card_content">
+                                    <div class="oe_kanban_card_content_section">
+                                        <div class="oe_kanban_card_content_label">
+                                            Start Date:
+                                        </div>
+                                        <div class="oe_kanban_card_content_value">
+                                            <field name="start_date" />
+                                        </div>
+                                    </div>
+                                    <div class="oe_kanban_card_content_section">
+                                        <div class="oe_kanban_card_content_label">
+                                            End Date:
+                                        </div>
+                                        <div class="oe_kanban_card_content_value">
+                                            <field name="end_date" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+
+    </record>
+
+<!-- calendar view with default view on days    -->
+    <record model="ir.ui.view" id="project_task_calendar_view">
+        <field name="name">scientific.task.calendar</field>
+        <field name="model">scientific.task</field>
+        <field name="type">calendar</field>
+        <field name="arch" type="xml">
+            <calendar string="Tasks" date_start="start_date" date_stop="end_date"  mode="month">
+                <field name="name"/>
+                <field name="status"/>
+            </calendar>
+        </field>
+    </record>
+
     <!-- Action for tasks -->
     <record id="project_task_action" model="ir.actions.act_window">
         <field name="name">Tasks</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">scientific.task</field>
 
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">tree,kanban,form,calendar</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new task
@@ -68,6 +128,5 @@
     </record>
 
     <!-- Menu item for tasks -->
-    <menuitem id="project_task_menu" name="Tasks" parent="scientific_root" action="project_task_action"/>
 
 </odoo>

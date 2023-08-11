@@ -8,7 +8,6 @@ class Project(models.Model):
     start_date = fields.Date(string='Start Date')
     end_date = fields.Date(string='End Date')
     description = fields.Text(string='Description')
-    tasks = fields.One2many('scientific.task', 'project_id', string='Tasks')
     status = fields.Selection([
         ('draft', 'Draft'),
         ('in_progress', 'In Progress'),
@@ -16,6 +15,9 @@ class Project(models.Model):
         ('cancelled', 'Cancelled'),
     ], string='Status', default='draft')
     document_id = fields.Many2one('scientific.document', string='Document')
+    funding = fields.Many2many('scientific.funding', string='Funding')
+    principal_investigator_id = fields.Many2one('scientific.researcher', string='Principal Investigator')
+    collaborators_ids = fields.Many2many('res.partner', string='Collaborators')
     def action_draft(self):
         self.status = 'draft'
 
@@ -27,6 +29,7 @@ class Project(models.Model):
 
     def action_cancelled(self):
         self.status = 'cancelled'
+
 
 
 

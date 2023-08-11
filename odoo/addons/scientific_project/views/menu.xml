@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <!--Projects-->
+
+    <menuitem id="scientific_root"
+              name="Scientific"
+              sequence="10"/>
+
+
+
+    <menuitem id="scientific_projects_root"
+              name="Projects"
+              parent="scientific_root"
+              sequence="10"/>
+
+
+    <!-- Dropdown on projects -->
+
+
+    <menuitem id="scientific_project_menu_action"
+                name="Projects"
+                parent="scientific_projects_root"
+                action="project_action_all"
+                sequence="10"/>
+
+         Tasks
+
+    <menuitem id="project_task_menu"
+              name="Tasks"
+              parent="scientific_projects_root"
+              action="project_task_action"
+              sequence="11"  />
+
+</odoo>
