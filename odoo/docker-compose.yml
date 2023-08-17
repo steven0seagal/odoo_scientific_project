@@ -13,7 +13,7 @@ services:
     - POSTGRES_DB=postgres
     - PGDATA=/var/lib/postgresql/data/pgdata
   web:
-    image: odoo:15
+    image: odoo:16
     depends_on:
       - db
     ports:

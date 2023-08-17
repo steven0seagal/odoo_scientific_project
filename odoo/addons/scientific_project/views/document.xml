@@ -21,7 +21,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="file_name"/>
-                <field name="state"/>
+                <field name="status"/>
 
             </tree>
         </field>
@@ -37,7 +37,7 @@
                 <sheet>
                     <group>
                         <field name="file_name"/>
-                        <field name="state"/>
+                        <field name="status"/>
                         <field name="file"/>
                     </group>
                     <group>
@@ -52,7 +52,7 @@
         </field>
     </record>
 
-     Action for documents
+<!--     Action for documents-->
     <record id="project_document_action" model="ir.actions.act_window">
         <field name="name">Documents</field>
         <field name="type">ir.actions.act_window</field>
@@ -65,8 +65,16 @@
         </field>
     </record>
 
-     Menu item for documents
-    <menuitem id="project_document_menu" name="Documents" parent="scientific_root" action="project_document_action"/>
+<!--     Menu item for documents-->
+    <menuitem id="project_document_menu"
+              name="Documents"
+              parent="scientific_projects_root"
+              action="project_document_action"
+              sequence="12"  />
+
+
+<!--    <menuitem id="project_document_menu" name="Documents" parent="scientific_root" action="project_document_action"/>-->
+
 
 
 

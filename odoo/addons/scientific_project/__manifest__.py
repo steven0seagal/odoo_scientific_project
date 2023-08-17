@@ -13,7 +13,6 @@
         'views/project.xml',
         'views/task.xml',
         'views/document.xml',
-        'views/menu.xml',
     ],
     'demo' : [],
     'qweb' : [],

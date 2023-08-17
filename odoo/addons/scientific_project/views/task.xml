@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <odoo>
-    <record id="project_action" model="ir.actions.act_window">
+    <record id="project_task_action" model="ir.actions.act_window">
         <field name="name">Tasks</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">scientific.task</field>
@@ -128,5 +128,10 @@
     </record>
 
     <!-- Menu item for tasks -->
+        <menuitem id="project_task_menu"
+              name="Tasks"
+              parent="scientific_projects_root"
+              action="project_task_action"
+              sequence="11"  />
 
 </odoo>
