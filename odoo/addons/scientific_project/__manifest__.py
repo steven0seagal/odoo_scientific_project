@@ -7,7 +7,7 @@
     'description' : 'Scientific Project Manager',
     'category' : 'Project',
     'website' : 'www.example.com',
-    'depends' : [],
+    'depends' : ['mail','base'],
     'data' : [
         'security/ir.model.access.csv',
         'views/project.xml',

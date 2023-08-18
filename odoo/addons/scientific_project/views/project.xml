@@ -12,19 +12,20 @@
             </p>
         </field>
     </record>
-    <!--  View all pojects    -->
 
+    <!--  View all pojects    -->
     <record id="project_action_all" model="ir.actions.act_window">
         <field name="name">All Projects</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">scientific.project</field>
-        <field name="view_mode">kanban,tree,form,calendar</field>
+        <field name="view_mode">tree,kanban,form,calendar</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new scientific project
             </p>
         </field>
     </record>
+
     <!-- List view for projects -->
     <record model="ir.ui.view" id="project_project_list_view">
         <field name="name">scientific.project.list</field>
@@ -118,7 +119,18 @@
 
     </record>
 
-
+    <!--Project action-->
+    <record id="project_action" model="ir.actions.act_window">
+        <field name="name">My Projects</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scientific.project</field>
+        <field name="view_mode">kanban,tree,form,calendar</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new scientific project
+            </p>
+        </field>
+    </record>
 
 
     <!--Popout window for creating projects    -->
@@ -130,8 +142,38 @@
         <field name="target">new</field>
     </record>
 
+    <!-- Create new project    -->
+    <record model="ir.actions.act_window" id="project_action_new">
+        <field name="name">Create Project</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scientific.project</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
 
 
+    <menuitem id="scientific_root"
+              name="Scientific"
+              sequence="10"/>
+
+
+
+    <menuitem id="scientific_projects_root"
+              name="Projects"
+              parent="scientific_root"
+              sequence="10"/>
+
+    <menuitem id="scientific_project_menu_action"
+                name="Projects"
+                parent="scientific_projects_root"
+                action="project_action_new"
+                sequence="10"/>
+
+        <menuitem id="scientific_project_menu_action"
+                name="Projects"
+                parent="scientific_projects_root"
+                action="project_action_all"
+                sequence="10"/>
 
 
 </odoo>
