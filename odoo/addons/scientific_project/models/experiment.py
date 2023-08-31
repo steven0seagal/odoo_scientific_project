@@ -10,4 +10,4 @@ class ScientificExperiment(models.Model):
     end_date = fields.Date(string='End Date')
     status = fields.Selection([('planning', 'Planning'), ('in_progress', 'In Progress'), ('completed', 'Completed')], string='Status')
     results = fields.Text(string='Results')
-    project_id = fields.Many2one('scientific.project', string='Project')
+    project_id = fields.Many2many('scientific.project', string='Project')

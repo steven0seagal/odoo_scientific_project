@@ -34,18 +34,33 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" />
+                </header>
                 <sheet>
                     <group>
+                        <field name="title"/>
                         <field name="file_name"/>
-                        <field name="status"/>
                         <field name="file"/>
+                        <field name="document_type"/>
+                        <field name="confidentiality_level"/>
                     </group>
                     <group>
                         <field name="description"/>
+                        <field name="keywords"/>
+                        <field name="comments"/>
                     </group>
                     <group>
                         <field name="project_id"/>
                         <field name="task_id"/>
+                        <field name="associated_experiment_id"/>
+                        <field name="author_ids"/>
+                        <field name="version"/>
+                    </group>
+                    <group>
+                        <field name="review_date"/>
+                        <field name="creation_date"/>
+                        <field name="last_modified_date"/>
                     </group>
                 </sheet>
             </form>
