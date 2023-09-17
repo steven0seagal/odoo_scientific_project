@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="experiment_action" model="ir.actions.act_window">
+        <field name="name">Experiments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scientific.experiment</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new experiment
+            </p>
+        </field>
+    </record>
+
+    <!-- List view for experiments -->
+    <record model="ir.ui.view" id="experiment_list_view">
+        <field name="name">scientific.experiment.list</field>
+        <field name="model">scientific.experiment</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="status"/>
+                <field name="project_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+
+
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for creating and editing experiments -->
+    <record model="ir.ui.view" id="experiment_form_view">
+        <field name="name">scientific.experiment.form</field>
+        <field name="model">scientific.experiment</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="project_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="status"/>
+                    </group>
+                    <group>
+                        <field name="introduction"/>
+                        <field name="hypothesis"/>
+                        <field name="methodology"/>
+                        <field name="results"/>
+                        <field name="conclusion"/>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for experiments -->
+    <record id="project_experiment_action" model="ir.actions.act_window">
+        <field name="name">Experiments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scientific.experiment</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new experiment
+            </p>
+        </field>
+    </record>
+
+
+
+    <!-- Menu item for experiments -->
+    <menuitem id="project_experiment_menu"
+              name="Experiments"
+              parent="scientific_projects_root"
+              action="project_experiment_action"
+              sequence="13"/>
+
+</odoo>

@@ -13,6 +13,8 @@
         'views/project.xml',
         'views/task.xml',
         'views/document.xml',
+        'views/experiment.xml',
+        'views/researcher.xml',
     ],
     'demo' : [],
     'qweb' : [],

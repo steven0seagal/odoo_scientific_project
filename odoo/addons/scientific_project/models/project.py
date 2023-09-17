@@ -18,7 +18,7 @@ class Project(models.Model):
     document_id = fields.Many2one('scientific.document', string='Document', tracking=True)
     funding = fields.Many2many('scientific.funding', string='Funding')
     principal_investigator_id = fields.Many2one('scientific.researcher', string='Principal Investigator')
-    collaborators_ids = fields.Many2many('res.partner', string='Collaborators')
+    collaborators_ids = fields.Many2many('scientific.researcher', string='Collaborators')
     def action_draft(self):
         self.status = 'draft'
 

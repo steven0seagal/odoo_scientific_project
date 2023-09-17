@@ -107,6 +107,7 @@
                             <field name="document_id"/>
                             <field name="funding"/>
                             <field name="principal_investigator_id"/>
+                            <field name="collaborators_ids"/>
                         </group>
 
                     </sheet>
