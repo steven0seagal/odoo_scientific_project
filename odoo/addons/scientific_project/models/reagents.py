@@ -11,5 +11,6 @@ class ScientificReagent(models.Model):
     status = fields.Selection([('available', 'Available'), ('not_available', 'Not available'), ('in_delivery', 'In delivery')], string='Status')
     amount = fields.Integer(string='Amount')
     units = fields.Char(string='Units')
-    project_id = fields.Many2one('scientific.project', string='Project')
+    project_id = fields.Many2many('scientific.project', string='Project')
+    notes = fields.Text(string='Notes')
 

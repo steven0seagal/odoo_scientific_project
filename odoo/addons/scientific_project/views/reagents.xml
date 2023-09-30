@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <!-- All reagents views -->
+
+
+    <!-- List view for reagents -->
+    <record model="ir.ui.view" id="reagent_list_view">
+        <field name="name">scientific.reagent.list</field>
+        <field name="model">scientific.reagent</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="location"/>
+                <field name="status"/>
+                <field name="amount"/>
+                <field name="units"/>
+                <field name="project_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for creating and editing reagents -->
+    <record model="ir.ui.view" id="reagent_form_view">
+        <field name="name">scientific.reagent.form</field>
+        <field name="model">scientific.reagent</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="location"/>
+                        <field name="status"/>
+                        <field name="amount"/>
+                        <field name="units"/>
+                    </group>
+                    <notebook>
+
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Projects">
+                            <field name="project_id"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Kanban view for reagents and set default grouping by reagent type -->
+
+    <record model="ir.ui.view" id="reagent_kanban_view">
+        <field name="name">scientific.reagent.kanban</field>
+        <field name="model">scientific.reagent</field>
+        <field name="type">kanban</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="type">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_card_header">
+                                    <div class="oe_kanban_card_header_title">
+                                        Name:
+                                        <field name="name"/>
+                                    </div>
+                                    <div class="oe_kanban_card_header_status">
+                                        <field name="status" />
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action for reagents -->
+    <record model="ir.actions.act_window" id="scientific_reagent_action">
+        <field name="name">Reagents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">scientific.reagent</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a new reagent
+            </p>
+        </field>
+    </record>
+
+
+
+    <!-- Menuitem -->
+        <menuitem id="reagents_menu_action"
+              name="Reagents"
+              parent="equipment_menu"
+              action="scientific_reagent_action"
+              sequence="2"
+              />
+
+</odoo>

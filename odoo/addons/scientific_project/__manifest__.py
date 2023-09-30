@@ -16,6 +16,7 @@
         'views/experiment.xml',
         'views/researcher.xml',
         'views/equipment.xml',
+        'views/reagents.xml',
     ],
     'demo' : [],
     'qweb' : [],
