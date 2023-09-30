@@ -47,7 +47,6 @@
                         <field name="project_id"/>
                         <field name="start_date"/>
                         <field name="end_date"/>
-                        <field name="status"/>
                     </group>
                     <group>
                         <field name="introduction"/>
@@ -56,9 +55,17 @@
                         <field name="results"/>
                         <field name="conclusion"/>
                     </group>
-                    <group>
-                        <field name="notes"/>
-                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Researchers">
+                            <field name="assigned_to_ids"/>
+                        </page>
+                        <page string="Documents">
+                            <field name="document_id"/>
+                        </page>
+                    </notebook>
                 </sheet>
 
             </form>
