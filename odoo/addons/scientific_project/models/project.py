@@ -15,10 +15,11 @@ class Project(models.Model):
         ('done', 'Done'),
         ('cancelled', 'Cancelled'),
     ], string='Status', default='draft',tracking=True)
-    document_id = fields.Many2one('scientific.document', string='Document', tracking=True)
+    document_id = fields.Many2many('scientific.document', string='Document', tracking=True)
     funding = fields.Many2many('scientific.funding', string='Funding')
     principal_investigator_id = fields.Many2one('scientific.researcher', string='Principal Investigator')
     collaborators_ids = fields.Many2many('scientific.researcher', string='Collaborators')
+    notes = fields.Text(string='Notes')
     def action_draft(self):
         self.status = 'draft'
 

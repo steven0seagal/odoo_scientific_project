@@ -100,15 +100,26 @@
                             <field name="name"/>
                             <field name="start_date"/>
                             <field name="end_date"/>
-    <!--                        <field name="status"/>-->
+                            <field name="principal_investigator_id"/>
+
                             <field name="description"/>
                         </group>
-                        <group>
-                            <field name="document_id"/>
-                            <field name="funding"/>
-                            <field name="principal_investigator_id"/>
-                            <field name="collaborators_ids"/>
-                        </group>
+                        <notebook>
+                            <page string="Documents">
+                                <field name="document_id"/>
+                            </page>
+                            <page string="Funding data">
+                                <field name="funding"/>
+                            </page>
+                            <page string="Collaborators">
+                                <field name="collaborators_ids"/>
+                            </page>
+                            <page string="Notes">
+                                <field name="notes"/>
+                            </page>
+
+
+                        </notebook>
 
                     </sheet>
                     <div class="oe_chatter">

@@ -4,7 +4,7 @@ class ScientificDocument(models.Model):
     _name = 'scientific.document'
     _description = 'Document'
 
-    project_id = fields.Many2one('scientific.project', string='Project')
+    project_id = fields.Many2many('scientific.project', string='Project')
     task_id = fields.Many2one('scientific.task', string='Task')
     title = fields.Char(string='Title', required=True)
     file_name = fields.Char(string='File Name')
