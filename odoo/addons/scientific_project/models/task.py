@@ -16,4 +16,5 @@ class ScientificTask(models.Model):
         [('planning', 'Planning'), ('in_progress', 'In Progress'), ('completed', 'Completed'),('cancelled', 'Cancelled')], string='Status', default='planning', track_visibility='onchange')
     project_id = fields.Many2one('scientific.project', string='Project', track_visibility='onchange')
 
-    document_id = fields.Many2one('scientific.document', string='Document', track_visibility='onchange')
+    document_id = fields.Many2many('scientific.document', string='Document', track_visibility='onchange')
+    notes = fields.Text(string='Notes', track_visibility='onchange')

@@ -35,21 +35,29 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" />
+                </header>
                 <sheet>
                     <group>
                         <field name="name"/>
                         <field name="start_date"/>
                         <field name="end_date"/>
-                        <field name="assigned_to_ids"/>
-                        <field name="status"/>
-                    </group>
-                    <group>
                         <field name="description"/>
-                    </group>
-                    <group>
                         <field name="project_id"/>
-                        <field name="document_id"/>
+
                     </group>
+                    <notebook>
+                        <page string="Documents">
+                            <field name="document_id"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Reaearchers">
+                            <field name="assigned_to_ids"/>
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
