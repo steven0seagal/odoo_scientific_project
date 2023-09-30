@@ -15,6 +15,7 @@
         'views/document.xml',
         'views/experiment.xml',
         'views/researcher.xml',
+        'views/equipment.xml',
     ],
     'demo' : [],
     'qweb' : [],

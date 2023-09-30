@@ -9,3 +9,6 @@ class ScientificEquipment(models.Model):
     location = fields.Char(string='Location')
     status = fields.Selection([('available', 'Available'), ('in_use', 'In Use'), ('maintenance', 'Maintenance')], string='Status')
     maintenance_schedule = fields.Date(string='Maintenance Schedule')
+    notes = fields.Text(string='Notes')
+    care_taker_id = fields.Many2one('scientific.researcher', string='Care Taker')
+    document_id = fields.Many2many('scientific.document', string='Document')
