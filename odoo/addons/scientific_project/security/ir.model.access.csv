@@ -7,3 +7,4 @@ access_scientific_researcher,scientific.researcher,model_scientific_researcher,"
 access_scientific_tag,scientific.tags,model_scientific_tags,"",1,1,1,1
 access_scientific_equipment,scientific.equipment,model_scientific_equipment,"",1,1,1,1
 access_scientific_reagent,scientific.reagent,model_scientific_reagent,"",1,1,1,1
+access_scientific_schedule,scientific.schedule,model_scientific_schedule,"",1,1,1,1

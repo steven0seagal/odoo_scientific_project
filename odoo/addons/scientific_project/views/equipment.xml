@@ -4,6 +4,7 @@
     <!-- All views for equipment model-->
 
 
+
     <!-- List view for equipment -->
     <record model="ir.ui.view" id="equipment_list_view">
         <field name="name">scientific.equipment.list</field>
