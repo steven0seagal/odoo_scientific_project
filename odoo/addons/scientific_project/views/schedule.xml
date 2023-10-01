@@ -57,12 +57,41 @@
         <field name="type">kanban</field>
         <field name="arch" type="xml">
             <kanban default_group_by="equipment_id">
-                <field name="equipment_id"/>
-                <field name="experiment_id"/>
-                <field name="researcher_id"/>
-                <field name="start_time"/>
-                <field name="end_time"/>
-                <field name="notes"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_card_header">
+                                    <div class="oe_kanban_card_header_title">
+                                        Equipment:
+                                        <field name="equipment_id"/>
+                                    </div>
+                                    <div class="oe_kanban_card_header_status">
+                                        Experiment:
+                                        <field name="experiment_id"/>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_card_content">
+                                    <div class="oe_kanban_card_content_field">
+                                        Researcher:
+                                        <field name="researcher_id"/>
+                                    </div>
+                                    <div class="oe_kanban_card_content_field">
+                                        Start time:
+                                        <field name="start_time"/>
+                                    </div>
+                                    <div class="oe_kanban_card_content_field">
+                                        End time:
+                                        <field name="end_time"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+
+
+
             </kanban>
         </field>
     </record>
