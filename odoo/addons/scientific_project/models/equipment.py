@@ -12,3 +12,4 @@ class ScientificEquipment(models.Model):
     notes = fields.Text(string='Notes')
     care_taker_id = fields.Many2one('scientific.researcher', string='Care Taker')
     document_id = fields.Many2many('scientific.document', string='Document')
+    experiment_id = fields.Many2many('scientific.experiment', string='Experiment')

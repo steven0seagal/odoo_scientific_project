@@ -40,6 +40,9 @@
                         <field name="maintenance_schedule"/>
                     </group>
                     <notebook>
+                        <page string="Experiments">
+                            <field name="experiment_id"/>
+                        </page>
                         <page string="Documents">
                             <field name="document_id"/>
                         </page>
