@@ -19,3 +19,4 @@ class ScientificExperiment(models.Model):
     notes = fields.Text(string='Notes')
     document_id = fields.Many2many('scientific.document', string='Document')
     assigned_to_ids = fields.Many2many('scientific.researcher', string='Assigned to')
+    equipment_ids = fields.Many2many('scientific.equipment', string='Equipment')
