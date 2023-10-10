@@ -81,9 +81,13 @@
     </record>
 
 <!--     Menu item for documents-->
+    <menuitem id="document_menu"
+              name="Documents"
+              parent="scientific_root" />
+
     <menuitem id="project_document_menu"
               name="Documents"
-              parent="scientific_projects_root"
+              parent="document_menu"
               action="project_document_action"
               sequence="12"  />
 

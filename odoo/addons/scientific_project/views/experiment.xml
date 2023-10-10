@@ -66,6 +66,8 @@
                             <field name="document_id"/>
                         </page>
                         <page string="Equipment">
+                            <field name="equipment_ids"/>
+                        </page>
 
                     </notebook>
                 </sheet>
