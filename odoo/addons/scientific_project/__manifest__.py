@@ -40,6 +40,7 @@
         'data/automated_actions.xml',
 
         # Views
+        'views/dashboard.xml',
         'views/project.xml',
         'views/task.xml',
         'views/document.xml',
