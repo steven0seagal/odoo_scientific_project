@@ -2,8 +2,26 @@ odoo/addons/main/*
 /odoo/addons/main/
 
 # Python cache files
+# Environment variables - DO NOT COMMIT
+.env
+.env.local
+.env.*.local
+*.env
+
+# Docker volumes
+odoo/db-data/
+db-data/
+
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
