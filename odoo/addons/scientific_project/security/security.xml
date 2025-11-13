@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Module Category -->
+        <record id="module_category_scientific" model="ir.module.category">
+            <field name="name">Scientific Research</field>
+            <field name="description">Manage scientific projects, experiments, and research data</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Security Groups -->
+
+        <!-- Read-only User: Can only view records they're assigned to -->
+        <record id="group_scientific_readonly" model="res.groups">
+            <field name="name">Scientific User: Read Only</field>
+            <field name="category_id" ref="module_category_scientific"/>
+            <field name="comment">Read-only access to assigned projects and experiments</field>
+        </record>
+
+        <!-- Regular User: Can create and modify own records -->
+        <record id="group_scientific_user" model="res.groups">
+            <field name="name">Scientific User</field>
+            <field name="category_id" ref="module_category_scientific"/>
+            <field name="implied_ids" eval="[(4, ref('group_scientific_readonly'))]"/>
+            <field name="comment">Standard user with create, read, and write access to assigned records</field>
+        </record>
+
+        <!-- Manager: Full access to all records -->
+        <record id="group_scientific_manager" model="res.groups">
+            <field name="name">Scientific Manager</field>
+            <field name="category_id" ref="module_category_scientific"/>
+            <field name="implied_ids" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="comment">Full administrative access to all scientific data</field>
+        </record>
+
+        <!-- Record Rules for Data Isolation -->
+
+        <!-- PROJECT RULES -->
+        <!-- Managers can see all projects -->
+        <record id="scientific_project_manager_rule" model="ir.rule">
+            <field name="name">Project: Manager Access</field>
+            <field name="model_id" ref="model_scientific_project"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_manager'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <!-- Users can only see projects they're involved in -->
+        <record id="scientific_project_user_rule" model="ir.rule">
+            <field name="name">Project: User Access</field>
+            <field name="model_id" ref="model_scientific_project"/>
+            <field name="domain_force">[
+                '|',
+                ('principal_investigator_id.user_id', '=', user.id),
+                ('collaborators_ids.user_id', 'in', [user.id])
+            ]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Read-only users can only view projects they're involved in -->
+        <record id="scientific_project_readonly_rule" model="ir.rule">
+            <field name="name">Project: Read Only Access</field>
+            <field name="model_id" ref="model_scientific_project"/>
+            <field name="domain_force">[
+                '|',
+                ('principal_investigator_id.user_id', '=', user.id),
+                ('collaborators_ids.user_id', 'in', [user.id])
+            ]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_readonly'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- TASK RULES -->
+        <!-- Managers can see all tasks -->
+        <record id="scientific_task_manager_rule" model="ir.rule">
+            <field name="name">Task: Manager Access</field>
+            <field name="model_id" ref="model_scientific_task"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_manager'))]"/>
+        </record>
+
+        <!-- Users can see tasks they're assigned to -->
+        <record id="scientific_task_user_rule" model="ir.rule">
+            <field name="name">Task: User Access</field>
+            <field name="model_id" ref="model_scientific_task"/>
+            <field name="domain_force">[('assigned_to_ids.user_id', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+        </record>
+
+        <!-- EXPERIMENT RULES -->
+        <!-- Managers can see all experiments -->
+        <record id="scientific_experiment_manager_rule" model="ir.rule">
+            <field name="name">Experiment: Manager Access</field>
+            <field name="model_id" ref="model_scientific_experiment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_manager'))]"/>
+        </record>
+
+        <!-- Users can see experiments they're assigned to -->
+        <record id="scientific_experiment_user_rule" model="ir.rule">
+            <field name="name">Experiment: User Access</field>
+            <field name="model_id" ref="model_scientific_experiment"/>
+            <field name="domain_force">[('assigned_to_ids.user_id', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+        </record>
+
+        <!-- DOCUMENT RULES -->
+        <!-- Managers can see all documents -->
+        <record id="scientific_document_manager_rule" model="ir.rule">
+            <field name="name">Document: Manager Access</field>
+            <field name="model_id" ref="model_scientific_document"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_manager'))]"/>
+        </record>
+
+        <!-- Users can see documents based on confidentiality level -->
+        <record id="scientific_document_user_rule" model="ir.rule">
+            <field name="name">Document: User Access</field>
+            <field name="model_id" ref="model_scientific_document"/>
+            <field name="domain_force">[
+                '|',
+                ('confidentiality_level', 'in', ['public', 'internal', False]),
+                '|',
+                ('author_ids.user_id', 'in', [user.id]),
+                ('project_id.collaborators_ids.user_id', 'in', [user.id])
+            ]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+        </record>
+
+        <!-- RESEARCHER RULES -->
+        <!-- Managers can see all researchers -->
+        <record id="scientific_researcher_manager_rule" model="ir.rule">
+            <field name="name">Researcher: Manager Access</field>
+            <field name="model_id" ref="model_scientific_researcher"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_manager'))]"/>
+        </record>
+
+        <!-- Users can see all researchers (for collaboration) -->
+        <record id="scientific_researcher_user_rule" model="ir.rule">
+            <field name="name">Researcher: User Access</field>
+            <field name="model_id" ref="model_scientific_researcher"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- EQUIPMENT RULES -->
+        <!-- Managers can see all equipment -->
+        <record id="scientific_equipment_manager_rule" model="ir.rule">
+            <field name="name">Equipment: Manager Access</field>
+            <field name="model_id" ref="model_scientific_equipment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_manager'))]"/>
+        </record>
+
+        <!-- Users can see all equipment (for reservation) -->
+        <record id="scientific_equipment_user_rule" model="ir.rule">
+            <field name="name">Equipment: User Access</field>
+            <field name="model_id" ref="model_scientific_equipment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- REAGENT RULES -->
+        <!-- Managers can see all reagents -->
+        <record id="scientific_reagent_manager_rule" model="ir.rule">
+            <field name="name">Reagent: Manager Access</field>
+            <field name="model_id" ref="model_scientific_reagent"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_manager'))]"/>
+        </record>
+
+        <!-- Users can see all reagents -->
+        <record id="scientific_reagent_user_rule" model="ir.rule">
+            <field name="name">Reagent: User Access</field>
+            <field name="model_id" ref="model_scientific_reagent"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+        </record>
+
+        <!-- SCHEDULE RULES -->
+        <!-- Managers can see all schedules -->
+        <record id="scientific_schedule_manager_rule" model="ir.rule">
+            <field name="name">Schedule: Manager Access</field>
+            <field name="model_id" ref="model_scientific_schedule"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_manager'))]"/>
+        </record>
+
+        <!-- Users can see all schedules (for coordination) -->
+        <record id="scientific_schedule_user_rule" model="ir.rule">
+            <field name="name">Schedule: User Access</field>
+            <field name="model_id" ref="model_scientific_schedule"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+        </record>
+
+        <!-- TAGS RULES -->
+        <!-- All users can see and use tags -->
+        <record id="scientific_tags_user_rule" model="ir.rule">
+            <field name="name">Tags: User Access</field>
+            <field name="model_id" ref="model_scientific_tags"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+        </record>
+
+    </data>
+</odoo>
