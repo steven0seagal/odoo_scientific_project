@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # MkDocs Documentation Server
+  docs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: scientific-project-docs
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount documentation source for live reload during development
+      - ./docs:/docs/docs:ro
+      - ./mkdocs.yml:/docs/mkdocs.yml:ro
+    environment:
+      - MKDOCS_LIVE_RELOAD=true
+      - TZ=UTC
+    restart: unless-stopped
+    networks:
+      - docs-network
+    labels:
+      - "com.project.description=Scientific Project Manager Documentation"
+      - "com.project.version=1.0.0"
+
+networks:
+  docs-network:
+    driver: bridge
+
+# Optional: Add nginx reverse proxy for production
+# Uncomment below to add nginx with SSL support
+
+# services:
+#   nginx:
+#     image: nginx:alpine
+#     container_name: scientific-project-nginx
+#     ports:
+#       - "80:80"
+#       - "443:443"
+#     volumes:
+#       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+#       - ./ssl:/etc/nginx/ssl:ro
+#     depends_on:
+#       - docs
+#     restart: unless-stopped
+#     networks:
+#       - docs-network
