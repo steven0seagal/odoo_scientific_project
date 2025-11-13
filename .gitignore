@@ -1,2 +1,11 @@
 odoo/addons/main/*
 /odoo/addons/main/
+
+# Environment variables with sensitive data
+.env
+odoo/.env
+*.env
+
+# Database data
+odoo/db-data/
+odoo/web-data/

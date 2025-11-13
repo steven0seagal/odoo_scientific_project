@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Module Categories -->
+        <record id="module_category_scientific" model="ir.module.category">
+            <field name="name">Scientific Project</field>
+            <field name="description">Scientific project management and research tools</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <!-- Security Groups -->
+
+        <!-- User Group: Basic access to scientific projects -->
+        <record id="group_scientific_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_category_scientific"/>
+            <field name="comment">User can view and create projects, experiments, and documents they are assigned to</field>
+        </record>
+
+        <!-- Principal Investigator Group: Can manage projects and teams -->
+        <record id="group_scientific_pi" model="res.groups">
+            <field name="name">Principal Investigator</field>
+            <field name="category_id" ref="module_category_scientific"/>
+            <field name="implied_ids" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="comment">Principal Investigator can manage their own projects, create experiments, and assign tasks</field>
+        </record>
+
+        <!-- Manager Group: Full access to all features -->
+        <record id="group_scientific_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_category_scientific"/>
+            <field name="implied_ids" eval="[(4, ref('group_scientific_pi'))]"/>
+            <field name="comment">Manager has full access to all scientific projects, experiments, equipment, and settings</field>
+        </record>
+
+        <!-- Read-only Group: View-only access -->
+        <record id="group_scientific_readonly" model="res.groups">
+            <field name="name">Read-only / Observer</field>
+            <field name="category_id" ref="module_category_scientific"/>
+            <field name="comment">Read-only access to public scientific data</field>
+        </record>
+
+    </data>
+</odoo>

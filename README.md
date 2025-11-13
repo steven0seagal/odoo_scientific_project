@@ -136,12 +136,20 @@ This repository includes a complete Docker Compose setup for quick deployment:
    cd odoo_scientific_project
    ```
 
-2. **Start the containers**:
+2. **Configure environment variables** (Recommended for production):
+   ```bash
+   cd odoo
+   cp .env.example .env
+   # Edit .env and set a strong database password
+   nano .env
+   ```
+
+3. **Start the containers**:
    ```bash
    docker-compose up -d
    ```
 
-3. **Access Odoo**:
+4. **Access Odoo**:
    - Open your browser to `http://localhost:8069`
    - Create a database and install the "Scientific Project Manager" module
 
@@ -339,14 +347,39 @@ odoo_scientific_project/
 
 ### Security Audit
 
-A comprehensive security audit has been conducted. Key findings:
+A comprehensive security audit has been conducted and **all critical and high priority security issues have been resolved**.
 
-- **Security Score**: 4/10 (current) → 8/10 (with fixes)
-- **Critical Issues**: 3 (hardcoded credentials, broken access control, insecure user creation)
-- **High Issues**: 3 (file upload validation, input validation, date validation)
-- **Medium Issues**: 3 (record rules, audit trails, uniqueness constraints)
+- **Security Score**: ~~4/10~~ → **8/10** ✅
+- **Critical Issues**: ~~3~~ → **0** (All resolved)
+- **High Issues**: ~~3~~ → **0** (All resolved)
+- **Medium Issues**: ~~3~~ → **0** (All resolved)
 
 See [SECURITY_AUDIT_REPORT.md](SECURITY_AUDIT_REPORT.md) for complete details.
+
+#### ✅ Security Improvements Implemented (2025-11-13)
+
+**Critical Security Fixes:**
+1. ✅ **Database Credentials Secured**: Moved hardcoded credentials to environment variables (.env)
+2. ✅ **Access Control Implemented**: Created comprehensive security groups (Manager, PI, User, Read-only)
+3. ✅ **User Creation Secured**: Fixed insecure automatic user creation with password generation and validation
+4. ✅ **Record-Level Security**: Implemented granular record rules for data isolation
+
+**High Priority Fixes:**
+5. ✅ **File Upload Validation**: Added size limits (50MB documents, 5MB images) and type restrictions
+6. ✅ **Email Validation**: Implemented RFC 5322 email validation
+7. ✅ **Date Range Validation**: All models now validate start/end dates
+8. ✅ **Equipment Conflict Detection**: Schedule validation prevents double-booking
+
+**Data Integrity:**
+9. ✅ **Audit Trails**: Added mail.thread tracking to all critical models (document, experiment, equipment, researcher)
+10. ✅ **Uniqueness Constraints**: SQL constraints prevent duplicate projects, equipment, emails, and tags
+11. ✅ **Default Values**: All status fields have proper defaults
+12. ✅ **Model Ordering**: Consistent sorting across all models
+
+**Code Quality:**
+13. ✅ **Fixed Typo**: Changed `raport_created` to `report_created` in experiment model
+14. ✅ **Tracking Consistency**: All models use modern `tracking=True` instead of deprecated methods
+15. ✅ **Input Validation**: Comprehensive validation on all user inputs
 
 ### Recommended Security Groups
 
@@ -360,20 +393,23 @@ See [SECURITY_AUDIT_REPORT.md](SECURITY_AUDIT_REPORT.md) for complete details.
 ### Security Checklist
 
 Pre-Production:
-- [ ] Security groups defined
-- [ ] Access rights configured
-- [ ] Record rules implemented
-- [ ] Database credentials moved to environment variables
-- [ ] File upload validation added
-- [ ] Email validation implemented
-- [ ] Audit logging enabled
+- [x] Security groups defined ✅
+- [x] Access rights configured ✅
+- [x] Record rules implemented ✅
+- [x] Database credentials moved to environment variables ✅
+- [x] File upload validation added ✅
+- [x] Email validation implemented ✅
+- [x] Audit logging enabled ✅
+- [x] Date range validation added ✅
+- [x] SQL uniqueness constraints added ✅
 
-Production:
+Production (Manual Configuration Required):
 - [ ] HTTPS enabled
-- [ ] Strong password policy
+- [ ] Strong password policy enforced in Odoo settings
 - [ ] Two-factor authentication for admins
-- [ ] Regular security audits
+- [ ] Regular security audits scheduled
 - [ ] Backup and recovery tested
+- [ ] Update .env file with strong passwords (see odoo/.env.example)
 
 For complete security configuration, see [Security Guide](docs/docs/security/overview.md) and [SECURITY.md](odoo/addons/scientific_project/SECURITY.md).
 

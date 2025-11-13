@@ -9,6 +9,8 @@
     'website' : 'www.example.com',
     'depends' : ['mail','base'],
     'data' : [
+        'security/security.xml',
+        'security/ir.rule.xml',
         'security/ir.model.access.csv',
         'views/project.xml',
         'views/task.xml',
