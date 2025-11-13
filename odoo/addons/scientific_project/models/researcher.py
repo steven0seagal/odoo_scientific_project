@@ -1,4 +1,8 @@
-from odoo import models, fields,api
+from odoo import models, fields, api
+from odoo.exceptions import UserError, ValidationError
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class ScientificResearcher(models.Model):
     _name = 'scientific.researcher'
@@ -33,16 +37,42 @@ class ScientificResearcher(models.Model):
         users = self.env['res.users']
 
         for researcher in researchers:
-            user_vals = {
-                'name': researcher.name,
-                'login': researcher.name,
-                'email': researcher.email,
-                # Add other user fields as needed
-            }
-            user = users.create(user_vals)
-            researcher.write({'user_id': user.id})
+            # Only create user if email is provided
+            if not researcher.email:
+                _logger.warning(f"Researcher {researcher.name} created without email - user account not created")
+                continue
+
+            try:
+                # Check if user with this login already exists
+                existing_user = users.search([('login', '=', researcher.email)], limit=1)
+                if existing_user:
+                    researcher.write({'user_id': existing_user.id})
+                    _logger.info(f"Linked researcher {researcher.name} to existing user {existing_user.login}")
+                else:
+                    user_vals = {
+                        'name': researcher.name,
+                        'login': researcher.email,  # Use email as login
+                        'email': researcher.email,
+                        'groups_id': [(6, 0, [self.env.ref('base.group_user').id])],
+                    }
+                    user = users.create(user_vals)
+                    researcher.write({'user_id': user.id})
+                    _logger.info(f"Created user account for researcher {researcher.name}")
+            except Exception as e:
+                _logger.error(f"Failed to create user for researcher {researcher.name}: {str(e)}")
+                # Don't fail the researcher creation, just log the error
+                continue
 
         return researchers
+
+    @api.constrains('email')
+    def _check_email_format(self):
+        """Validate email format"""
+        import re
+        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        for record in self:
+            if record.email and not re.match(email_pattern, record.email):
+                raise ValidationError(f"Invalid email format: {record.email}")
 class ScientificResearcherTags(models.Model):
 
     _name = 'scientific.tags'
