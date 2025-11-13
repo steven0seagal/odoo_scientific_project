@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_scientific_publication_tree" model="ir.ui.view">
+        <field name="name">scientific.publication.tree</field>
+        <field name="model">scientific.publication</field>
+        <field name="arch" type="xml">
+            <tree string="Publications" decoration-success="status=='published'" decoration-info="status=='accepted'" decoration-muted="status in ['rejected','cancelled']">
+                <field name="title"/>
+                <field name="publication_type"/>
+                <field name="status"/>
+                <field name="journal_conference"/>
+                <field name="publication_date"/>
+                <field name="authors_ids" widget="many2many_tags"/>
+                <field name="impact_factor"/>
+                <field name="citation_count"/>
+                <field name="project_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_scientific_publication_form" model="ir.ui.view">
+        <field name="name">scientific.publication.form</field>
+        <field name="model">scientific.publication</field>
+        <field name="arch" type="xml">
+            <form string="Publication">
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="title"/>
+                            <field name="publication_type"/>
+                            <field name="journal_conference"/>
+                            <field name="doi"/>
+                            <field name="url" widget="url"/>
+                        </group>
+                        <group>
+                            <field name="publication_date"/>
+                            <field name="submission_date"/>
+                            <field name="acceptance_date"/>
+                            <field name="impact_factor"/>
+                            <field name="citation_count"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="authors_ids" widget="many2many_tags"/>
+                        <field name="project_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Abstract">
+                            <field name="abstract"/>
+                        </page>
+                        <page string="Related Research">
+                            <group>
+                                <field name="experiment_ids" widget="many2many_tags"/>
+                                <field name="task_ids" widget="many2many_tags"/>
+                                <field name="keywords"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="view_scientific_publication_kanban" model="ir.ui.view">
+        <field name="name">scientific.publication.kanban</field>
+        <field name="model">scientific.publication</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status" class="o_kanban_small_column">
+                <field name="title"/>
+                <field name="status"/>
+                <field name="publication_type"/>
+                <field name="publication_date"/>
+                <field name="citation_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title"><field name="title"/></strong>
+                                    </div>
+                                    <span class="badge badge-pill"><field name="publication_type"/></span>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <field name="journal_conference"/>
+                                    <div class="text-muted">
+                                        <i class="fa fa-calendar"/> <field name="publication_date"/>
+                                    </div>
+                                    <div>
+                                        <i class="fa fa-quote-right"/> Citations: <field name="citation_count"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_scientific_publication_search" model="ir.ui.view">
+        <field name="name">scientific.publication.search</field>
+        <field name="model">scientific.publication</field>
+        <field name="arch" type="xml">
+            <search string="Publications">
+                <field name="title"/>
+                <field name="authors_ids"/>
+                <field name="journal_conference"/>
+                <field name="project_id"/>
+                <filter string="Published" name="published" domain="[('status','=','published')]"/>
+                <filter string="Accepted" name="accepted" domain="[('status','=','accepted')]"/>
+                <filter string="Under Review" name="review" domain="[('status','=','under_review')]"/>
+                <separator/>
+                <filter string="This Year" name="this_year" domain="[('publication_date','&gt;=',datetime.datetime.now().strftime('%Y-01-01'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_status" context="{'group_by':'status'}"/>
+                    <filter string="Type" name="group_type" context="{'group_by':'publication_type'}"/>
+                    <filter string="Project" name="group_project" context="{'group_by':'project_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_scientific_publication" model="ir.actions.act_window">
+        <field name="name">Publications</field>
+        <field name="res_model">scientific.publication</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first publication
+            </p>
+            <p>
+                Track journal articles, conference papers, and other research outputs.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_scientific_publication"
+              name="Publications"
+              parent="scientific_project.menu_scientific_main"
+              action="action_scientific_publication"
+              sequence="50"/>
+</odoo>

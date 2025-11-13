@@ -10,6 +10,10 @@ access_scientific_tag_manager,scientific.tags.manager,model_scientific_tags,grou
 access_scientific_equipment_manager,scientific.equipment.manager,model_scientific_equipment,group_scientific_manager,1,1,1,1
 access_scientific_reagent_manager,scientific.reagent.manager,model_scientific_reagent,group_scientific_manager,1,1,1,1
 access_scientific_schedule_manager,scientific.schedule.manager,model_scientific_schedule,group_scientific_manager,1,1,1,1
+access_scientific_publication_manager,scientific.publication.manager,model_scientific_publication,group_scientific_manager,1,1,1,1
+access_scientific_data_management_manager,scientific.data_management.manager,model_scientific_data_management,group_scientific_manager,1,1,1,1
+access_scientific_partner_manager,scientific.partner.manager,model_scientific_partner,group_scientific_manager,1,1,1,1
+access_scientific_funding_manager,scientific.funding.manager,model_scientific_funding,group_scientific_manager,1,1,1,1
 
 # ========== PRINCIPAL INVESTIGATOR ACCESS ==========
 access_scientific_project_pi,scientific.project.pi,model_scientific_project,group_scientific_pi,1,1,1,1
@@ -21,6 +25,10 @@ access_scientific_tag_pi,scientific.tags.pi,model_scientific_tags,group_scientif
 access_scientific_equipment_pi,scientific.equipment.pi,model_scientific_equipment,group_scientific_pi,1,0,0,0
 access_scientific_reagent_pi,scientific.reagent.pi,model_scientific_reagent,group_scientific_pi,1,1,1,0
 access_scientific_schedule_pi,scientific.schedule.pi,model_scientific_schedule,group_scientific_pi,1,1,1,1
+access_scientific_publication_pi,scientific.publication.pi,model_scientific_publication,group_scientific_pi,1,1,1,1
+access_scientific_data_management_pi,scientific.data_management.pi,model_scientific_data_management,group_scientific_pi,1,1,1,1
+access_scientific_partner_pi,scientific.partner.pi,model_scientific_partner,group_scientific_pi,1,1,1,0
+access_scientific_funding_pi,scientific.funding.pi,model_scientific_funding,group_scientific_pi,1,1,1,0
 
 # ========== USER ACCESS ==========
 access_scientific_project_user,scientific.project.user,model_scientific_project,group_scientific_user,1,1,0,0
@@ -32,6 +40,10 @@ access_scientific_tag_user,scientific.tags.user,model_scientific_tags,group_scie
 access_scientific_equipment_user,scientific.equipment.user,model_scientific_equipment,group_scientific_user,1,0,0,0
 access_scientific_reagent_user,scientific.reagent.user,model_scientific_reagent,group_scientific_user,1,0,0,0
 access_scientific_schedule_user,scientific.schedule.user,model_scientific_schedule,group_scientific_user,1,1,1,0
+access_scientific_publication_user,scientific.publication.user,model_scientific_publication,group_scientific_user,1,1,1,0
+access_scientific_data_management_user,scientific.data_management.user,model_scientific_data_management,group_scientific_user,1,1,1,0
+access_scientific_partner_user,scientific.partner.user,model_scientific_partner,group_scientific_user,1,0,0,0
+access_scientific_funding_user,scientific.funding.user,model_scientific_funding,group_scientific_user,1,0,0,0
 
 # ========== READ-ONLY ACCESS ==========
 access_scientific_project_readonly,scientific.project.readonly,model_scientific_project,group_scientific_readonly,1,0,0,0
@@ -43,3 +55,7 @@ access_scientific_tag_readonly,scientific.tags.readonly,model_scientific_tags,gr
 access_scientific_equipment_readonly,scientific.equipment.readonly,model_scientific_equipment,group_scientific_readonly,1,0,0,0
 access_scientific_reagent_readonly,scientific.reagent.readonly,model_scientific_reagent,group_scientific_readonly,1,0,0,0
 access_scientific_schedule_readonly,scientific.schedule.readonly,model_scientific_schedule,group_scientific_readonly,1,0,0,0
+access_scientific_publication_readonly,scientific.publication.readonly,model_scientific_publication,group_scientific_readonly,1,0,0,0
+access_scientific_data_management_readonly,scientific.data_management.readonly,model_scientific_data_management,group_scientific_readonly,1,0,0,0
+access_scientific_partner_readonly,scientific.partner.readonly,model_scientific_partner,group_scientific_readonly,1,0,0,0
+access_scientific_funding_readonly,scientific.funding.readonly,model_scientific_funding,group_scientific_readonly,1,0,0,0
