@@ -30,7 +30,6 @@
     <record model="ir.ui.view" id="project_project_list_view">
         <field name="name">scientific.project.list</field>
         <field name="model">scientific.project</field>
-        <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -45,7 +44,6 @@
     <record model="ir.ui.view" id="project_project_kanban_view">
         <field name="name">scientific.project.kanban</field>
         <field name="model">scientific.project</field>
-        <field name="type">kanban</field>
         <field name="arch" type="xml">
             <kanban default_group_by="status">
                 <templates>
@@ -88,7 +86,6 @@
     <record model="ir.ui.view" id="project_project_form_view">
         <field name="name">scientific.project.form</field>
         <field name="model">scientific.project</field>
-        <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
                 <header>

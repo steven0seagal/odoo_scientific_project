@@ -7,14 +7,14 @@ class ScientificTask(models.Model):
     _description = 'Task'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char(string='Name', required=True, track_visibility='onchange')
-    description = fields.Text(string='Description', track_visibility='onchange')
-    assigned_to_ids = fields.Many2many('scientific.researcher', string='Assigned to', track_visibility='onchange')
-    start_date = fields.Date(string='Start Date', track_visibility='onchange')
-    end_date = fields.Date(string='End Date', track_visibility='onchange')
+    name = fields.Char(string='Name', required=True, tracking=True)
+    description = fields.Text(string='Description', tracking=True)
+    assigned_to_ids = fields.Many2many('scientific.researcher', string='Assigned to', tracking=True)
+    start_date = fields.Date(string='Start Date', tracking=True)
+    end_date = fields.Date(string='End Date', tracking=True)
     status = fields.Selection(
-        [('planning', 'Planning'), ('in_progress', 'In Progress'), ('completed', 'Completed'),('cancelled', 'Cancelled')], string='Status', default='planning', track_visibility='onchange')
-    project_id = fields.Many2one('scientific.project', string='Project', track_visibility='onchange')
+        [('planning', 'Planning'), ('in_progress', 'In Progress'), ('completed', 'Completed'),('cancelled', 'Cancelled')], string='Status', default='planning', tracking=True)
+    project_id = fields.Many2one('scientific.project', string='Project', tracking=True)
 
-    document_id = fields.Many2many('scientific.document', string='Document', track_visibility='onchange')
-    notes = fields.Text(string='Notes', track_visibility='onchange')
+    document_id = fields.Many2many('scientific.document', string='Document', tracking=True)
+    notes = fields.Text(string='Notes', tracking=True)

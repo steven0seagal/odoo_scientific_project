@@ -7,7 +7,6 @@
     <record model="ir.ui.view" id="schedule_list_view">
         <field name="name">scientific.schedule.list</field>
         <field name="model">scientific.schedule</field>
-        <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="equipment_id"/>
@@ -26,7 +25,6 @@
     <record model="ir.ui.view" id="schedule_form_view">
         <field name="name">scientific.schedule.form</field>
         <field name="model">scientific.schedule</field>
-        <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
 
@@ -54,7 +52,6 @@
     <record model="ir.ui.view" id="schedule_kanban_view">
         <field name="name">scientific.schedule.kanban</field>
         <field name="model">scientific.schedule</field>
-        <field name="type">kanban</field>
         <field name="arch" type="xml">
             <kanban default_group_by="equipment_id">
                 <templates>
@@ -101,7 +98,6 @@
     <record model="ir.ui.view" id="schedule_calendar_view">
         <field name="name">scientific.schedule.calendar</field>
         <field name="model">scientific.schedule</field>
-        <field name="type">calendar</field>
         <field name="arch" type="xml">
             <calendar string="Schedule" date_start="start_time" date_stop="end_time" mode="week">
                 <field name="equipment_id"/>
