@@ -1,13 +1,19 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 import logging
+import base64
+import imghdr
 
 _logger = logging.getLogger(__name__)
 
 class ScientificResearcher(models.Model):
     _name = 'scientific.researcher'
     _description = 'Researcher'
-    # _inherit = 'res.users'
+    _sql_constraints = [
+        ('email_unique', 'UNIQUE(email)', 'Email address must be unique!'),
+        ('user_id_unique', 'UNIQUE(user_id)', 'User account already linked to another researcher!'),
+    ]
+
     user_id = fields.Many2one('res.users', string='User')
     name = fields.Char(string='Name', required=True)
     type = fields.Selection([('student', 'Student'), ('professor', 'Professor'), ('researcher', 'Researcher')], string='Type')
@@ -15,7 +21,8 @@ class ScientificResearcher(models.Model):
     affiliation = fields.Char(string='Affiliation')
     specialization = fields.Char(string='Specialization')
     tags = fields.Many2many('scientific.tags', string='Tags')
-    image = fields.Binary(string='Image')
+    image = fields.Binary(string='Image', attachment=True)
+    image_size = fields.Float(string='Image Size (MB)', compute='_compute_image_size')
     street = fields.Char(string='Street')
     street2 = fields.Char(string='Street2')
     city = fields.Char(string='City')
@@ -65,6 +72,23 @@ class ScientificResearcher(models.Model):
 
         return researchers
 
+    # Image upload security constants
+    MAX_IMAGE_SIZE = 5 * 1024 * 1024  # 5MB
+    ALLOWED_IMAGE_FORMATS = ['png', 'jpeg', 'jpg', 'gif', 'bmp', 'webp']
+
+    @api.depends('image')
+    def _compute_image_size(self):
+        """Calculate image size in MB"""
+        for record in self:
+            if record.image:
+                try:
+                    image_data = base64.b64decode(record.image)
+                    record.image_size = len(image_data) / (1024 * 1024)
+                except Exception:
+                    record.image_size = 0.0
+            else:
+                record.image_size = 0.0
+
     @api.constrains('email')
     def _check_email_format(self):
         """Validate email format"""
@@ -73,10 +97,39 @@ class ScientificResearcher(models.Model):
         for record in self:
             if record.email and not re.match(email_pattern, record.email):
                 raise ValidationError(f"Invalid email format: {record.email}")
-class ScientificResearcherTags(models.Model):
 
+    @api.constrains('image', 'image_size')
+    def _check_image_upload_security(self):
+        """Validate image uploads for security"""
+        for record in self:
+            if record.image:
+                # Check size
+                if record.image_size > (self.MAX_IMAGE_SIZE / (1024 * 1024)):
+                    raise ValidationError(
+                        f'Image size ({record.image_size:.2f} MB) exceeds maximum allowed size '
+                        f'of {self.MAX_IMAGE_SIZE / (1024 * 1024)} MB. '
+                        f'Please upload a smaller image or compress it.'
+                    )
+
+                # Validate image format
+                try:
+                    image_data = base64.b64decode(record.image)
+                    image_format = imghdr.what(None, h=image_data)
+
+                    if image_format not in self.ALLOWED_IMAGE_FORMATS:
+                        raise ValidationError(
+                            f'Invalid image format "{image_format}". '
+                            f'Allowed formats: {", ".join(self.ALLOWED_IMAGE_FORMATS).upper()}. '
+                            f'Please upload a valid image file.'
+                        )
+                except Exception as e:
+                    raise ValidationError(f'Invalid image file: {str(e)}')
+class ScientificResearcherTags(models.Model):
     _name = 'scientific.tags'
     _description = 'Researcher Tags'
+    _sql_constraints = [
+        ('name_unique', 'UNIQUE(name)', 'Tag name must be unique!'),
+    ]
 
     name = fields.Char(string='Name', required=True)
     researcher_ids = fields.Many2many('scientific.researcher', string='Researchers')

@@ -2,8 +2,8 @@
 
 ![Odoo Version](https://img.shields.io/badge/Odoo-15.0-blue)
 ![License](https://img.shields.io/badge/License-LGPL--3-green)
-![Version](https://img.shields.io/badge/Version-15.0.2.0.0-orange)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
+![Version](https://img.shields.io/badge/Version-15.0.2.1.0-orange)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-success) ![Security](https://img.shields.io/badge/Security-9%2F10-brightgreen)
 
 A comprehensive Odoo 15.0 application for managing scientific research projects, experiments, laboratory equipment, and documentation in research institutions and laboratories.
 

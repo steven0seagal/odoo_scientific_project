@@ -1,7 +1,7 @@
 
 {
     'name': 'Scientific Project Manager',
-    'version': '15.0.2.0.0',
+    'version': '15.0.2.1.0',
     'summary': 'Complete project management for scientific research institutions',
     'sequence': -99,
     'description': """
