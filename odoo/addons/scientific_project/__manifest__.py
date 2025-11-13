@@ -1,7 +1,7 @@
 
 {
     'name' : 'Scientific Project Manager',
-    'version' : '15.0.1.0.0',
+    'version' : '18.0.1.0.0',
     'summary' : 'Scientific Project Manager',
     'sequence' : -99,
     'description' : 'Scientific Project Manager',
@@ -20,7 +20,6 @@
         'views/schedule.xml',
     ],
     'demo' : [],
-    'qweb' : [],
     'installable' : True,
     'application' : True,
     'auto_install' : False,

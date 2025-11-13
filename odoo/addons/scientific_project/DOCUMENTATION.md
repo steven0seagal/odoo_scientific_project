@@ -1355,4 +1355,4 @@ For installation and quick start, see [README.md](README.md).
 
 **Document Version**: 1.0
 **Last Updated**: 2025-11-13
-**Odoo Version**: 15.0
+**Odoo Version**: 18.0

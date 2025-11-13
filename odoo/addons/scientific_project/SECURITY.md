@@ -978,9 +978,9 @@ test_as_user('viewer_user')
 
 ### Odoo Security Documentation
 
-- [Official Security Guide](https://www.odoo.com/documentation/15.0/developer/reference/backend/security.html)
-- [Access Rights](https://www.odoo.com/documentation/15.0/developer/reference/backend/security.html#access-rights)
-- [Record Rules](https://www.odoo.com/documentation/15.0/developer/reference/backend/security.html#record-rules)
+- [Official Security Guide](https://www.odoo.com/documentation/18.0/developer/reference/backend/security.html)
+- [Access Rights](https://www.odoo.com/documentation/18.0/developer/reference/backend/security.html#access-rights)
+- [Record Rules](https://www.odoo.com/documentation/18.0/developer/reference/backend/security.html#record-rules)
 
 ### Security Standards
 
@@ -1021,5 +1021,5 @@ Implementing proper security is essential for production use of the Scientific P
 
 **Document Version**: 1.0
 **Last Updated**: 2025-11-13
-**Odoo Version**: 15.0
+**Odoo Version**: 18.0
 **Security Level**: Production-Ready Reference
