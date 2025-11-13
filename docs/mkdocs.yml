@@ -1,0 +1,184 @@
+site_name: Scientific Project Manager Documentation
+site_description: Comprehensive documentation for the Odoo Scientific Project Manager addon
+site_author: Scientific Project Manager Team
+site_url: https://your-domain.com
+
+# Repository
+repo_name: steven0seagal/odoo_scientific_project
+repo_url: https://github.com/steven0seagal/odoo_scientific_project
+edit_uri: edit/main/docs/docs/
+
+# Copyright
+copyright: Copyright &copy; 2025 Scientific Project Manager Team
+
+# Configuration
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - search.share
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+  icon:
+    repo: fontawesome/brands/github
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+
+# Plugins
+plugins:
+  - search:
+      lang: en
+  - minify:
+      minify_html: true
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# Extra
+extra:
+  version:
+    provider: mike
+    default: latest
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/steven0seagal/odoo_scientific_project
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX
+
+# Navigation
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quick-start.md
+    - Configuration: getting-started/configuration.md
+    - Docker Setup: getting-started/docker-setup.md
+  - User Guide:
+    - Overview: user-guide/overview.md
+    - Core Modules:
+      - Projects: user-guide/core-modules/projects.md
+      - Tasks: user-guide/core-modules/tasks.md
+      - Experiments: user-guide/core-modules/experiments.md
+      - Researchers: user-guide/core-modules/researchers.md
+    - Supporting Modules:
+      - Documents: user-guide/supporting-modules/documents.md
+      - Equipment: user-guide/supporting-modules/equipment.md
+      - Reagents: user-guide/supporting-modules/reagents.md
+      - Scheduling: user-guide/supporting-modules/scheduling.md
+    - Views & Navigation: user-guide/views-navigation.md
+    - Workflows: user-guide/workflows.md
+    - Best Practices: user-guide/best-practices.md
+  - API Reference:
+    - Overview: api-reference/overview.md
+    - Core Models:
+      - scientific.project: api-reference/core-models/project.md
+      - scientific.task: api-reference/core-models/task.md
+      - scientific.experiment: api-reference/core-models/experiment.md
+      - scientific.researcher: api-reference/core-models/researcher.md
+    - Supporting Models:
+      - scientific.document: api-reference/supporting-models/document.md
+      - scientific.equipment: api-reference/supporting-models/equipment.md
+      - scientific.reagent: api-reference/supporting-models/reagent.md
+      - scientific.schedule: api-reference/supporting-models/schedule.md
+      - scientific.tags: api-reference/supporting-models/tags.md
+    - Data Models:
+      - scientific.funding: api-reference/data-models/funding.md
+      - scientific.publication: api-reference/data-models/publication.md
+      - scientific.data_management: api-reference/data-models/data-management.md
+      - scientific.partner: api-reference/data-models/partner.md
+    - Field Types: api-reference/field-types.md
+    - Methods: api-reference/methods.md
+    - Integration: api-reference/integration.md
+  - Security:
+    - Overview: security/overview.md
+    - Current Configuration: security/current-configuration.md
+    - Security Groups: security/security-groups.md
+    - Record Rules: security/record-rules.md
+    - Implementation Guide: security/implementation-guide.md
+    - Best Practices: security/best-practices.md
+    - Compliance: security/compliance.md
+    - Troubleshooting: security/troubleshooting.md
+  - Developer Guide:
+    - Architecture: developer-guide/architecture.md
+    - Model Development: developer-guide/model-development.md
+    - View Development: developer-guide/view-development.md
+    - Custom Fields: developer-guide/custom-fields.md
+    - Business Logic: developer-guide/business-logic.md
+    - Testing: developer-guide/testing.md
+    - Contributing: developer-guide/contributing.md
+  - Examples:
+    - Use Cases: examples/use-cases.md
+    - Code Examples: examples/code-examples.md
+    - API Usage: examples/api-usage.md
+    - Customization: examples/customization.md
+  - FAQ: faq.md
+  - Troubleshooting: troubleshooting.md
+  - Changelog: changelog.md
+  - License: license.md
