@@ -1,29 +1,36 @@
 
 {
     'name': 'Scientific Project Manager',
-    'version': '15.0.1.0.0',
-    'summary': 'Comprehensive Scientific Project Management System',
+    'version': '15.0.2.0.0',
+    'summary': 'Production-Ready Scientific Project Management with Dashboard & Analytics',
     'sequence': -99,
     'description': """
         Scientific Project Manager
         ==========================
 
-        A comprehensive system for managing scientific research projects, including:
-        - Project and experiment tracking
-        - Publication management
+        A production-ready system for managing scientific research projects, including:
+        - Dashboard with 16 real-time analytics
+        - Project and experiment tracking with Gantt views
+        - Publication management with DOI validation
         - Data management and versioning
         - Partner and collaborator management
         - Equipment and reagent inventory
-        - Task management and scheduling
-        - Role-based access control
-        - Document management
+        - Task management with priority and smart scheduling
+        - 5-tier role-based access control (RBAC)
+        - Document management with confidentiality levels
+        - Email notifications and automated workflows
 
-        Features:
-        - Multi-level security with role-based access
-        - Computed fields for better insights
-        - Data validation and constraints
-        - Email notifications and activity tracking
-        - Comprehensive reporting
+        Version 15.0.2.0.0 Features:
+        - Professional dashboard with quick actions
+        - 5 security groups with 65 access rules
+        - 4 HTML email templates for notifications
+        - 6 automated and scheduled actions
+        - Smart buttons for one-click navigation
+        - Gantt views for timeline visualization
+        - 40+ computed fields for real-time insights
+        - Complete data validation (email, DOI, dates, budgets)
+        - Enhanced UX with color-coded displays
+        - Publication and data lifecycle management
     """,
     'category': 'Project',
     'author': 'Scientific Project Team',
