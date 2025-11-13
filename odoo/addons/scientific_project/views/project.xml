@@ -13,12 +13,13 @@
         </field>
     </record>
 
-    <!--  View all pojects    -->
+    <!--  View all projects    -->
     <record id="project_action_all" model="ir.actions.act_window">
         <field name="name">All Projects</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">scientific.project</field>
-        <field name="view_mode">tree,kanban,form,calendar</field>
+        <field name="view_mode">tree,kanban,form,gantt,calendar</field>
+        <field name="search_view_id" ref="view_project_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new scientific project
@@ -32,11 +33,20 @@
         <field name="model">scientific.project</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-danger="is_overdue" decoration-success="status=='done'" decoration-muted="status=='cancelled'">
                 <field name="name"/>
+                <field name="principal_investigator_id"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
-                <field name="status"/>
+                <field name="days_remaining" optional="show"/>
+                <field name="status" decoration-success="status=='done'"
+                       decoration-info="status=='in_progress'"
+                       decoration-muted="status in ['draft','cancelled']"/>
+                <field name="experiment_count"/>
+                <field name="task_count"/>
+                <field name="completion_percentage" widget="progressbar"/>
+                <field name="total_budget" optional="hide"/>
+                <field name="is_overdue" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -92,41 +102,80 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="status" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" />
+                    <button name="action_draft" string="Set to Draft" type="object" states="in_progress,done,cancelled"/>
+                    <button name="action_in_progress" string="Start Project" type="object" class="oe_highlight" states="draft"/>
+                    <button name="action_done" string="Mark as Done" type="object" class="oe_highlight" states="in_progress"/>
+                    <button name="action_cancelled" string="Cancel" type="object" states="draft,in_progress"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,in_progress,done"/>
                 </header>
-                    <sheet>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_experiments" icon="fa-flask">
+                            <field string="Experiments" name="experiment_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_tasks" icon="fa-tasks">
+                            <field string="Tasks" name="task_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_publications" icon="fa-book">
+                            <field string="Publications" name="publication_count" widget="statinfo"/>
+                        </button>
+                    </div>
 
+                    <widget name="web_ribbon" title="Overdue" bg_color="bg-danger" attrs="{'invisible': [('is_overdue', '=', False)]}"/>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Project Name..."/>
+                        </h1>
+                    </div>
+
+                    <group>
                         <group>
-                            <field name="name"/>
+                            <field name="principal_investigator_id"/>
                             <field name="start_date"/>
                             <field name="end_date"/>
-                            <field name="principal_investigator_id"/>
-
-                            <field name="description"/>
+                            <field name="days_remaining" attrs="{'invisible': [('end_date', '=', False)]}"/>
                         </group>
-                        <notebook>
-                            <page string="Documents">
-                                <field name="document_id"/>
-                            </page>
-                            <page string="Funding data">
-                                <field name="funding"/>
-                            </page>
-                            <page string="Collaborators">
-                                <field name="collaborators_ids"/>
-                            </page>
-                            <page string="Notes">
-                                <field name="notes"/>
-                            </page>
+                        <group>
+                            <field name="total_budget" widget="monetary"/>
+                            <field name="completion_percentage" widget="progressbar"/>
+                            <field name="is_overdue" invisible="1"/>
+                        </group>
+                    </group>
 
+                    <group>
+                        <field name="description" placeholder="Project description..."/>
+                    </group>
 
-                        </notebook>
+                    <notebook>
+                        <page string="Collaborators">
+                            <field name="collaborators_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Funding">
+                            <field name="funding">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="source"/>
+                                    <field name="amount"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Documents">
+                            <field name="document_id"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" placeholder="Additional notes..."/>
+                        </page>
+                    </notebook>
 
-                    </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids" options="{'post_refresh':True}" help="Follow this project to automatically track the events associated to tasks and issues of this project." groups="base.group_user"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
-                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" options="{'post_refresh':True}" help="Follow this project to automatically track the events associated to tasks and issues of this project." groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
@@ -138,10 +187,50 @@
         <field name="arch" type="xml">
             <calendar string="Projects" date_start="start_date" date_stop="end_date" mode="month" create="true" color="status">
                 <field name="name"/>
-
             </calendar>
         </field>
+    </record>
 
+    <!-- Gantt View for Projects -->
+    <record id="view_project_gantt" model="ir.ui.view">
+        <field name="name">scientific.project.gantt</field>
+        <field name="model">scientific.project</field>
+        <field name="arch" type="xml">
+            <gantt string="Projects Gantt"
+                   date_start="start_date"
+                   date_stop="end_date"
+                   default_group_by="principal_investigator_id"
+                   color="status">
+                <field name="name"/>
+                <field name="status"/>
+                <field name="completion_percentage"/>
+            </gantt>
+        </field>
+    </record>
+
+    <!-- Search View for Projects -->
+    <record id="view_project_search" model="ir.ui.view">
+        <field name="name">scientific.project.search</field>
+        <field name="model">scientific.project</field>
+        <field name="arch" type="xml">
+            <search string="Search Projects">
+                <field name="name"/>
+                <field name="principal_investigator_id"/>
+                <field name="status"/>
+                <filter string="My Projects" name="my_projects"
+                        domain="[('principal_investigator_id.user_id', '=', uid)]"/>
+                <filter string="Overdue" name="overdue" domain="[('is_overdue', '=', True)]"/>
+                <separator/>
+                <filter string="Draft" name="draft" domain="[('status', '=', 'draft')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('status', '=', 'in_progress')]"/>
+                <filter string="Done" name="done" domain="[('status', '=', 'done')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                    <filter string="PI" name="group_pi" context="{'group_by': 'principal_investigator_id'}"/>
+                    <filter string="Start Date" name="group_start" context="{'group_by': 'start_date'}"/>
+                </group>
+            </search>
+        </field>
     </record>
 
     <!--Project action-->
@@ -149,7 +238,9 @@
         <field name="name">My Projects</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">scientific.project</field>
-        <field name="view_mode">kanban,tree,form,calendar</field>
+        <field name="view_mode">kanban,tree,form,gantt,calendar</field>
+        <field name="search_view_id" ref="view_project_search"/>
+        <field name="context">{'search_default_my_projects': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new scientific project
