@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Claude Session Start Hook
+# This script runs automatically when a new Claude Code session starts
+# It sets up the development environment for the Odoo Scientific Project
+
+set -e
+
+echo "🚀 Initializing Odoo Scientific Project environment..."
+
+# Change to project root
+cd "$(dirname "$0")/.."
+
+# Display project information
+echo ""
+echo "📦 Project: Odoo Scientific Project Manager"
+echo "📍 Location: $(pwd)"
+echo ""
+
+# Check Docker status
+if docker info > /dev/null 2>&1; then
+    echo "✅ Docker is running"
+
+    # Show container status if any are running
+    RUNNING_CONTAINERS=$(docker ps --filter "name=scientific-project\|odoo" --format "{{.Names}}" 2>/dev/null || true)
+
+    if [ -n "$RUNNING_CONTAINERS" ]; then
+        echo ""
+        echo "🐳 Running containers:"
+        docker ps --filter "name=scientific-project\|odoo" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || true
+        echo ""
+        echo "📝 Access points:"
+        echo "   - Odoo:          http://localhost:8069"
+        echo "   - Documentation: http://localhost:8000"
+    else
+        echo "📝 No containers currently running"
+        echo ""
+        echo "💡 Quick start:"
+        echo "   ./docker-start.sh all -d    # Start all services in background"
+        echo "   ./docker-start.sh odoo      # Start only Odoo"
+        echo "   ./docker-start.sh docs      # Start only documentation"
+        echo "   ./docker-start.sh --help    # Show all options"
+    fi
+else
+    echo "⚠️  Docker is not running"
+    echo "   Please start Docker to use containerized services"
+fi
+
+echo ""
+echo "📚 Project Structure:"
+echo "   - odoo/                 Odoo application and configuration"
+echo "   - docs/                 MkDocs documentation"
+echo "   - docker-start.sh       Quick start script for containers"
+echo ""
+
+# Check for .env file
+if [ ! -f "odoo/.env" ]; then
+    echo "⚠️  No .env file found in odoo/ directory"
+    echo "   Run './docker-start.sh odoo' to create a default configuration"
+    echo ""
+fi
+
+echo "✨ Environment ready! Happy coding!"
+echo ""
