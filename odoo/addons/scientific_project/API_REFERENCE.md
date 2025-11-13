@@ -34,7 +34,7 @@ This API reference provides complete technical documentation for all models, fie
 
 - **Module Name**: `scientific_project`
 - **Technical Name**: `scientific_project`
-- **Version**: 15.0.1.0.0
+- **Version**: 18.0.1.0.0
 - **Category**: Project
 - **Dependencies**: `base`, `mail`
 
@@ -1060,5 +1060,5 @@ scientific.project (1) ──────< (N) scientific.task
 
 **Document Version**: 1.0
 **Last Updated**: 2025-11-13
-**Odoo Version**: 15.0
-**Module Version**: 15.0.1.0.0
+**Odoo Version**: 18.0
+**Module Version**: 18.0.1.0.0

@@ -1,10 +1,10 @@
 # Scientific Project Manager
 
-[![Odoo Version](https://img.shields.io/badge/Odoo-15.0-blue)](https://www.odoo.com/)
+[![Odoo Version](https://img.shields.io/badge/Odoo-18.0-blue)](https://www.odoo.com/)
 [![License](https://img.shields.io/badge/License-LGPL--3-green)](https://www.gnu.org/licenses/lgpl-3.0.en.html)
-[![Version](https://img.shields.io/badge/Version-15.0.1.0.0-orange)](https://github.com/)
+[![Version](https://img.shields.io/badge/Version-18.0.1.0.0-orange)](https://github.com/)
 
-A comprehensive Odoo 15.0 addon for managing scientific research projects, experiments, researchers, laboratory equipment, and documentation in research institutions and laboratories.
+A comprehensive Odoo 18.0 addon for managing scientific research projects, experiments, researchers, laboratory equipment, and documentation in research institutions and laboratories.
 
 ## Table of Contents
 
@@ -111,9 +111,9 @@ A comprehensive Odoo 15.0 addon for managing scientific research projects, exper
 
 ### Prerequisites
 
-- Odoo 15.0 or higher
-- Python 3.7+
-- PostgreSQL 10+
+- Odoo 18.0 or higher
+- Python 3.10+
+- PostgreSQL 13+
 
 ### Dependencies
 
@@ -146,7 +146,7 @@ If you're using Docker, add the module to your custom addons directory and updat
 version: '3'
 services:
   odoo:
-    image: odoo:15.0
+    image: odoo:18.0
     volumes:
       - ./odoo/addons/scientific_project:/mnt/extra-addons/scientific_project
     environment:
@@ -307,7 +307,7 @@ The module is designed to be easily customizable:
 ## Technical Specifications
 
 ### Odoo Version
-- **Supported**: Odoo 15.0
+- **Supported**: Odoo 18.0
 - **Application Type**: Full Application
 - **Auto Install**: No
 
@@ -395,7 +395,14 @@ This module is maintained by the Scientific Project Manager team.
 
 ## Changelog
 
-### Version 15.0.1.0.0 (Current)
+### Version 18.0.1.0.0 (Current)
+- Migrated to Odoo 18.0
+- Updated deprecated `track_visibility` to `tracking=True`
+- Modernized view widget references
+- Updated Docker configuration to Odoo 18 and PostgreSQL 15
+- All core features maintained and compatible
+
+### Version 15.0.1.0.0
 - Initial release
 - Core project management features
 - Experiment tracking
