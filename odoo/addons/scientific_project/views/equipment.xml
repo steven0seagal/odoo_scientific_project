@@ -9,7 +9,6 @@
     <record model="ir.ui.view" id="equipment_list_view">
         <field name="name">scientific.equipment.list</field>
         <field name="model">scientific.equipment</field>
-        <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -26,7 +25,6 @@
     <record model="ir.ui.view" id="equipment_form_view">
         <field name="name">scientific.equipment.form</field>
         <field name="model">scientific.equipment</field>
-        <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -63,7 +61,6 @@
     <record model="ir.ui.view" id="equipment_kanban_view">
         <field name="name">scientific.equipment.kanban</field>
         <field name="model">scientific.equipment</field>
-        <field name="type">kanban</field>
         <field name="arch" type="xml">
             <kanban default_group_by="equipment_type">
                 <templates>
