@@ -9,6 +9,7 @@
     'website' : 'www.example.com',
     'depends' : ['mail','base'],
     'data' : [
+        'security/security.xml',  # Must be loaded before ir.model.access.csv
         'security/ir.model.access.csv',
         'views/project.xml',
         'views/task.xml',
