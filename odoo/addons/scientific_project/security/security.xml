@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Security Categories -->
+        <record id="module_category_scientific_project" model="ir.module.category">
+            <field name="name">Scientific Project</field>
+            <field name="description">Manage access rights for Scientific Project Management</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Security Groups -->
+
+        <!-- Manager Group - Full Access -->
+        <record id="group_scientific_project_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_category_scientific_project"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Full access to all scientific project features. Can create, modify, and delete all records.</field>
+        </record>
+
+        <!-- Principal Investigator Group - Project Management -->
+        <record id="group_scientific_project_pi" model="res.groups">
+            <field name="name">Principal Investigator</field>
+            <field name="category_id" ref="module_category_scientific_project"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Can manage own projects, experiments, and tasks. Can create publications and manage data.</field>
+        </record>
+
+        <!-- Researcher/User Group - Standard Access -->
+        <record id="group_scientific_project_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_category_scientific_project"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Can view projects, update assigned tasks and experiments, create data entries.</field>
+        </record>
+
+        <!-- Viewer Group - Read-only Access -->
+        <record id="group_scientific_project_viewer" model="res.groups">
+            <field name="name">Viewer</field>
+            <field name="category_id" ref="module_category_scientific_project"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Read-only access to public and internal data.</field>
+        </record>
+
+        <!-- Record Rules for Data Access Control -->
+
+        <!-- Projects: Manager can see all, PI sees own projects, User sees assigned projects -->
+        <record id="scientific_project_manager_rule" model="ir.rule">
+            <field name="name">Scientific Project: Manager - All Access</field>
+            <field name="model_id" ref="model_scientific_project"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_project_manager'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="scientific_project_pi_rule" model="ir.rule">
+            <field name="name">Scientific Project: PI - Own Projects</field>
+            <field name="model_id" ref="model_scientific_project"/>
+            <field name="domain_force">['|', ('principal_investigator_id.user_id', '=', user.id), ('collaborators_ids.user_id', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_project_pi'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="scientific_project_user_rule" model="ir.rule">
+            <field name="name">Scientific Project: User - Assigned Projects</field>
+            <field name="model_id" ref="model_scientific_project"/>
+            <field name="domain_force">['|', '|', ('principal_investigator_id.user_id', '=', user.id), ('collaborators_ids.user_id', 'in', [user.id]), ('task_ids.assigned_to_ids.user_id', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_project_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Tasks: Users can edit their assigned tasks -->
+        <record id="scientific_task_user_rule" model="ir.rule">
+            <field name="name">Scientific Task: User - Assigned Tasks</field>
+            <field name="model_id" ref="model_scientific_task"/>
+            <field name="domain_force">[('assigned_to_ids.user_id', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_project_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Experiments: Users can view and edit assigned experiments -->
+        <record id="scientific_experiment_user_rule" model="ir.rule">
+            <field name="name">Scientific Experiment: User - Assigned Experiments</field>
+            <field name="model_id" ref="model_scientific_experiment"/>
+            <field name="domain_force">[('assigned_to_ids.user_id', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_project_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Data Management: Access based on confidentiality level -->
+        <record id="scientific_data_user_rule" model="ir.rule">
+            <field name="name">Scientific Data: User - Own or Public Data</field>
+            <field name="model_id" ref="model_scientific_data_management"/>
+            <field name="domain_force">['|', ('researcher_id.user_id', '=', user.id), ('access_level', 'in', ['public', 'internal'])]</field>
+            <field name="groups" eval="[(4, ref('group_scientific_project_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Note: Manager and PI groups have access through ir.model.access.csv -->
+    </data>
+</odoo>

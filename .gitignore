@@ -1,2 +1,33 @@
 odoo/addons/main/*
 /odoo/addons/main/
+
+# Environment files (Security: Never commit credentials!)
+.env
+.env.local
+*.env
+
+# Database data
+odoo/db-data/
+**/db-data/
+
+# Odoo filestore
+odoo/web-data/
+**/web-data/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
