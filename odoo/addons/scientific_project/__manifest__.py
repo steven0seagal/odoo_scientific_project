@@ -35,6 +35,10 @@
         'security/security.xml',
         'security/ir.model.access.csv',
 
+        # Data
+        'data/mail_templates.xml',
+        'data/automated_actions.xml',
+
         # Views
         'views/project.xml',
         'views/task.xml',

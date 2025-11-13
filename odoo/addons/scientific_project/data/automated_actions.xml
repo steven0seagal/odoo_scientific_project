@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Automated Action: Send notification when task is assigned -->
+    <record id="action_task_assigned_notification" model="base.automation">
+        <field name="name">Task Assignment Notification</field>
+        <field name="model_id" ref="model_scientific_task"/>
+        <field name="trigger">on_create_or_write</field>
+        <field name="filter_domain">[('assigned_to_ids', '!=', False)]</field>
+        <field name="filter_pre_domain">[('assigned_to_ids', '=', False)]</field>
+        <field name="state">code</field>
+        <field name="code">
+# Send email notification to assigned researchers
+if record.assigned_to_ids:
+    template = env.ref('scientific_project.email_template_task_assigned', raise_if_not_found=False)
+    if template:
+        # Post message in chatter
+        record.message_post(
+            body='Task has been assigned to: %s' % ', '.join(record.assigned_to_ids.mapped('name')),
+            subject='Task Assigned',
+            message_type='notification',
+        )
+        # Send email
+        template.send_mail(record.id, force_send=False)
+        </field>
+    </record>
+
+    <!-- Automated Action: Notify when project status changes -->
+    <record id="action_project_status_change" model="base.automation">
+        <field name="name">Project Status Change Notification</field>
+        <field name="model_id" ref="model_scientific_project"/>
+        <field name="trigger">on_write</field>
+        <field name="filter_domain">[]</field>
+        <field name="filter_pre_domain">[('status', '!=', False)]</field>
+        <field name="state">code</field>
+        <field name="code">
+# Check if status was changed
+if 'status' in record._fields and record.status:
+    # Get old status from tracking
+    old_status = None
+    for tracking in record.message_ids.filtered(lambda m: m.tracking_value_ids):
+        for tracking_value in tracking.tracking_value_ids:
+            if tracking_value.field == 'status':
+                old_status = tracking_value.old_value_char
+                break
+        if old_status:
+            break
+
+    # Send notification if status changed
+    if old_status and old_status != record.status:
+        template = env.ref('scientific_project.email_template_project_status', raise_if_not_found=False)
+        if template:
+            # Post message in chatter
+            record.message_post(
+                body='Project status changed from %s to %s' % (old_status.title(), record.status.replace('_', ' ').title()),
+                subject='Status Update',
+                message_type='notification',
+            )
+            # Send email to PI and collaborators
+            template.send_mail(record.id, force_send=False)
+        </field>
+    </record>
+
+    <!-- Automated Action: Notify when experiment is completed -->
+    <record id="action_experiment_completed" model="base.automation">
+        <field name="name">Experiment Completion Notification</field>
+        <field name="model_id" ref="model_scientific_experiment"/>
+        <field name="trigger">on_write</field>
+        <field name="filter_domain">[('status', '=', 'completed')]</field>
+        <field name="filter_pre_domain">[('status', '!=', 'completed')]</field>
+        <field name="state">code</field>
+        <field name="code">
+# Send notification when experiment is completed
+if record.project_id and record.project_id.principal_investigator_id:
+    template = env.ref('scientific_project.email_template_experiment_completed', raise_if_not_found=False)
+    if template:
+        # Post message in chatter
+        record.message_post(
+            body='Experiment has been marked as completed.',
+            subject='Experiment Completed',
+            message_type='notification',
+        )
+        # Send email to PI
+        template.send_mail(record.id, force_send=False)
+        </field>
+    </record>
+
+    <!-- Automated Action: Update project status based on task completion -->
+    <record id="action_update_project_from_tasks" model="base.automation">
+        <field name="name">Auto-update Project Status from Tasks</field>
+        <field name="model_id" ref="model_scientific_task"/>
+        <field name="trigger">on_write</field>
+        <field name="filter_domain">[('project_id', '!=', False), ('status', '=', 'done')]</field>
+        <field name="state">code</field>
+        <field name="code">
+# Check if all tasks in the project are completed
+if record.project_id:
+    all_tasks = env['scientific.task'].search([('project_id', '=', record.project_id.id)])
+    completed_tasks = all_tasks.filtered(lambda t: t.status == 'done')
+
+    # If all tasks are done and project is in progress, suggest marking as done
+    if len(all_tasks) > 0 and len(completed_tasks) == len(all_tasks):
+        if record.project_id.status == 'in_progress':
+            record.project_id.message_post(
+                body='All tasks have been completed. Consider marking this project as Done.',
+                subject='All Tasks Completed',
+                message_type='notification',
+            )
+        </field>
+    </record>
+
+    <!-- Scheduled Action: Daily reminder for overdue tasks -->
+    <record id="cron_task_overdue_reminder" model="ir.cron">
+        <field name="name">Send Task Overdue Reminders</field>
+        <field name="model_id" ref="model_scientific_task"/>
+        <field name="state">code</field>
+        <field name="code">
+# Find all overdue tasks
+from datetime import date
+overdue_tasks = env['scientific.task'].search([
+    ('end_date', '&lt;', date.today()),
+    ('status', 'not in', ['done', 'cancelled'])
+])
+
+# Send reminder for each overdue task
+for task in overdue_tasks:
+    if task.assigned_to_ids:
+        task.message_post(
+            body='This task is overdue. Please update the status or extend the deadline.',
+            subject='Task Overdue',
+            message_type='notification',
+        )
+        </field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+        <field name="doall" eval="False"/>
+    </record>
+
+    <!-- Scheduled Action: Weekly summary for PIs -->
+    <record id="cron_project_summary" model="ir.cron">
+        <field name="name">Weekly Project Summary for PIs</field>
+        <field name="model_id" ref="model_scientific_project"/>
+        <field name="state">code</field>
+        <field name="code">
+# Find all active projects
+active_projects = env['scientific.project'].search([
+    ('status', 'in', ['draft', 'in_progress'])
+])
+
+# Group by PI and send summary
+pi_projects = {}
+for project in active_projects:
+    if project.principal_investigator_id:
+        pi_id = project.principal_investigator_id.id
+        if pi_id not in pi_projects:
+            pi_projects[pi_id] = []
+        pi_projects[pi_id].append(project)
+
+# Send summary to each PI
+for pi_id, projects in pi_projects.items():
+    pi = env['scientific.researcher'].browse(pi_id)
+    if pi.user_id:
+        summary_body = '&lt;h3&gt;Weekly Project Summary&lt;/h3&gt;'
+        summary_body += '&lt;p&gt;You are the Principal Investigator for %d active project(s):&lt;/p&gt;&lt;ul&gt;' % len(projects)
+
+        for project in projects:
+            summary_body += '&lt;li&gt;&lt;strong&gt;%s&lt;/strong&gt; - %s (%d%% complete)&lt;/li&gt;' % (
+                project.name,
+                project.status.replace('_', ' ').title(),
+                project.completion_percentage
+            )
+
+        summary_body += '&lt;/ul&gt;'
+
+        # Post notification
+        projects[0].message_post(
+            body=summary_body,
+            subject='Weekly Project Summary',
+            message_type='notification',
+            partner_ids=[pi.user_id.partner_id.id] if pi.user_id else []
+        )
+        </field>
+        <field name="interval_number">7</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="False"/>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>
