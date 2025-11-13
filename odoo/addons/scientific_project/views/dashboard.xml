@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dashboard Form View -->
+    <record id="view_scientific_dashboard_form" model="ir.ui.view">
+        <field name="name">scientific.dashboard.form</field>
+        <field name="model">scientific.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Scientific Project Dashboard" create="false" edit="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Scientific Project Dashboard</h1>
+                        <p>Overview of your research activities and key metrics</p>
+                    </div>
+
+                    <group>
+                        <group string="Project Overview">
+                            <button name="action_view_my_projects" type="object" class="oe_stat_button" icon="fa-folder-open">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="active_projects"/></span>
+                                    <span class="o_stat_text">Active Projects</span>
+                                </div>
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-check-circle" attrs="{'invisible': [('completed_projects', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="completed_projects"/></span>
+                                    <span class="o_stat_text">Completed</span>
+                                </div>
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-exclamation-triangle" attrs="{'invisible': [('overdue_projects', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info o_warning">
+                                    <span class="o_stat_value"><field name="overdue_projects"/></span>
+                                    <span class="o_stat_text">Overdue</span>
+                                </div>
+                            </button>
+                            <field name="total_projects" invisible="1"/>
+                        </group>
+
+                        <group string="Task Summary">
+                            <button name="action_view_my_tasks" type="object" class="oe_stat_button" icon="fa-tasks">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="my_tasks"/></span>
+                                    <span class="o_stat_text">My Tasks</span>
+                                </div>
+                            </button>
+                            <button name="action_view_overdue_tasks" type="object" class="oe_stat_button" icon="fa-clock-o" attrs="{'invisible': [('overdue_tasks', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info o_warning">
+                                    <span class="o_stat_value"><field name="overdue_tasks"/></span>
+                                    <span class="o_stat_text">Overdue</span>
+                                </div>
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-calendar-check-o">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="completed_this_week"/></span>
+                                    <span class="o_stat_text">Done This Week</span>
+                                </div>
+                            </button>
+                            <field name="total_tasks" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Research Activities">
+                            <button name="action_view_active_experiments" type="object" class="oe_stat_button" icon="fa-flask">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="active_experiments"/></span>
+                                    <span class="o_stat_text">Active Experiments</span>
+                                </div>
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-check">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="completed_experiments"/></span>
+                                    <span class="o_stat_text">Completed</span>
+                                </div>
+                            </button>
+                            <field name="total_experiments" invisible="1"/>
+                        </group>
+
+                        <group string="Publications &amp; Resources">
+                            <button name="action_view_publications" type="object" class="oe_stat_button" icon="fa-book">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="published_this_year"/></span>
+                                    <span class="o_stat_text">Published This Year</span>
+                                </div>
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-hourglass-half" attrs="{'invisible': [('in_review', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="in_review"/></span>
+                                    <span class="o_stat_text">In Review</span>
+                                </div>
+                            </button>
+                            <separator/>
+                            <button type="object" class="oe_stat_button" icon="fa-users">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="total_researchers"/></span>
+                                    <span class="o_stat_text">Researchers</span>
+                                </div>
+                            </button>
+                            <button type="object" class="oe_stat_button" icon="fa-wrench">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value"><field name="available_equipment"/></span>
+                                    <span class="o_stat_text">Available Equipment</span>
+                                </div>
+                            </button>
+                            <field name="total_publications" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <separator string="Quick Actions"/>
+                    <div class="oe_button_box" style="text-align: center; padding: 20px;">
+                        <button name="action_view_my_projects" string="View My Projects" type="object"
+                                class="btn-primary" style="margin: 5px;"/>
+                        <button name="action_view_my_tasks" string="View My Tasks" type="object"
+                                class="btn-primary" style="margin: 5px;"/>
+                        <button name="action_view_active_experiments" string="View Experiments" type="object"
+                                class="btn-info" style="margin: 5px;"/>
+                        <button name="action_view_overdue_tasks" string="Overdue Tasks" type="object"
+                                class="btn-warning" style="margin: 5px;" attrs="{'invisible': [('overdue_tasks', '=', 0)]}"/>
+                    </div>
+
+                    <div style="margin-top: 20px; padding: 15px; background-color: #f9f9f9; border-radius: 5px;">
+                        <h3 style="margin-top: 0;">💡 Quick Tips</h3>
+                        <ul style="line-height: 1.8;">
+                            <li>Use <strong>Gantt views</strong> to visualize project and task timelines</li>
+                            <li>Enable <strong>email notifications</strong> in Settings → Technical → Automation</li>
+                            <li>Use <strong>tags and priorities</strong> to organize your work</li>
+                            <li>Track your progress with <strong>smart buttons</strong> on project forms</li>
+                            <li>Collaborate using the <strong>chatter</strong> on any record</li>
+                        </ul>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Dashboard Action -->
+    <record id="action_scientific_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">scientific.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="view_id" ref="view_scientific_dashboard_form"/>
+    </record>
+
+    <!-- Dashboard Menu Item (at top level) -->
+    <menuitem id="menu_scientific_dashboard"
+              name="Dashboard"
+              parent="scientific_root"
+              action="action_scientific_dashboard"
+              sequence="1"/>
+</odoo>

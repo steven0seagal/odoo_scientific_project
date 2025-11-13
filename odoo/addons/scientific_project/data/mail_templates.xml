@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Email Template: Task Assignment Notification -->
+    <record id="email_template_task_assigned" model="mail.template">
+        <field name="name">Task Assignment Notification</field>
+        <field name="model_id" ref="model_scientific_task"/>
+        <field name="subject">Task Assigned: ${object.name}</field>
+        <field name="email_from">${(object.create_uid.email_formatted or user.email_formatted)|safe}</field>
+        <field name="email_to">${','.join([user.email for user in object.assigned_to_ids.mapped('user_id') if user.email])}</field>
+        <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <h2 style="color: #2c5aa0;">Task Assigned to You</h2>
+    <p>Hello,</p>
+    <p>You have been assigned to a new task:</p>
+
+    <div style="background-color: #f5f5f5; padding: 15px; margin: 20px 0; border-left: 4px solid #2c5aa0;">
+        <h3 style="margin-top: 0;">${object.name}</h3>
+        <p><strong>Project:</strong> ${object.project_id.name or 'N/A'}</p>
+        <p><strong>Priority:</strong>
+            % if object.priority == '3':
+                <span style="color: #d9534f;">⭐⭐⭐ Urgent</span>
+            % elif object.priority == '2':
+                <span style="color: #f0ad4e;">⭐⭐ High</span>
+            % elif object.priority == '1':
+                <span style="color: #5bc0de;">⭐ Normal</span>
+            % else:
+                <span style="color: #999;">Low</span>
+            % endif
+        </p>
+        <p><strong>Due Date:</strong> ${object.end_date or 'Not set'}</p>
+        <p><strong>Status:</strong> ${object.status.replace('_', ' ').title()}</p>
+    </div>
+
+    % if object.description:
+    <div style="margin: 20px 0;">
+        <h4>Description:</h4>
+        <p>${object.description}</p>
+    </div>
+    % endif
+
+    <div style="margin: 30px 0; text-align: center;">
+        <a href="/web#id=${object.id}&amp;model=scientific.task&amp;view_type=form"
+           style="background-color: #2c5aa0; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+            View Task
+        </a>
+    </div>
+
+    <p style="color: #666; font-size: 12px; margin-top: 30px;">
+        This is an automated notification from the Scientific Project Manager.
+    </p>
+</div>
+        </field>
+    </record>
+
+    <!-- Email Template: Task Due Date Reminder -->
+    <record id="email_template_task_due_reminder" model="mail.template">
+        <field name="name">Task Due Date Reminder</field>
+        <field name="model_id" ref="model_scientific_task"/>
+        <field name="subject">Reminder: Task "${object.name}" Due Soon</field>
+        <field name="email_from">${user.email_formatted|safe}</field>
+        <field name="email_to">${','.join([user.email for user in object.assigned_to_ids.mapped('user_id') if user.email])}</field>
+        <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <h2 style="color: #f0ad4e;">⚠️ Task Due Date Reminder</h2>
+    <p>Hello,</p>
+    <p>This is a reminder that the following task is due soon:</p>
+
+    <div style="background-color: #fff3cd; padding: 15px; margin: 20px 0; border-left: 4px solid #f0ad4e;">
+        <h3 style="margin-top: 0;">${object.name}</h3>
+        <p><strong>Project:</strong> ${object.project_id.name or 'N/A'}</p>
+        <p><strong>Due Date:</strong> <span style="color: #d9534f; font-weight: bold;">${object.end_date}</span></p>
+        <p><strong>Days Remaining:</strong> ${object.days_remaining} days</p>
+        <p><strong>Status:</strong> ${object.status.replace('_', ' ').title()}</p>
+    </div>
+
+    <p>Please ensure this task is completed on time.</p>
+
+    <div style="margin: 30px 0; text-align: center;">
+        <a href="/web#id=${object.id}&amp;model=scientific.task&amp;view_type=form"
+           style="background-color: #f0ad4e; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+            View Task
+        </a>
+    </div>
+
+    <p style="color: #666; font-size: 12px; margin-top: 30px;">
+        This is an automated notification from the Scientific Project Manager.
+    </p>
+</div>
+        </field>
+    </record>
+
+    <!-- Email Template: Project Status Change -->
+    <record id="email_template_project_status" model="mail.template">
+        <field name="name">Project Status Change Notification</field>
+        <field name="model_id" ref="model_scientific_project"/>
+        <field name="subject">Project Status Update: ${object.name}</field>
+        <field name="email_from">${(object.create_uid.email_formatted or user.email_formatted)|safe}</field>
+        <field name="email_to">${','.join([user.email for user in (object.principal_investigator_id + object.collaborators_ids).mapped('user_id') if user.email])}</field>
+        <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <h2 style="color: #2c5aa0;">Project Status Update</h2>
+    <p>Hello,</p>
+    <p>The status of project <strong>${object.name}</strong> has been updated:</p>
+
+    <div style="background-color: #f5f5f5; padding: 15px; margin: 20px 0; border-left: 4px solid #2c5aa0;">
+        <p><strong>New Status:</strong>
+            % if object.status == 'done':
+                <span style="color: #5cb85c;">✓ Done</span>
+            % elif object.status == 'in_progress':
+                <span style="color: #5bc0de;">→ In Progress</span>
+            % elif object.status == 'cancelled':
+                <span style="color: #999;">✗ Cancelled</span>
+            % else:
+                <span style="color: #f0ad4e;">Draft</span>
+            % endif
+        </p>
+        <p><strong>Principal Investigator:</strong> ${object.principal_investigator_id.name or 'N/A'}</p>
+        <p><strong>Completion:</strong> ${object.completion_percentage}%</p>
+        % if object.end_date:
+        <p><strong>End Date:</strong> ${object.end_date}</p>
+        % endif
+    </div>
+
+    <div style="margin: 30px 0; text-align: center;">
+        <a href="/web#id=${object.id}&amp;model=scientific.project&amp;view_type=form"
+           style="background-color: #2c5aa0; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+            View Project
+        </a>
+    </div>
+
+    <p style="color: #666; font-size: 12px; margin-top: 30px;">
+        This is an automated notification from the Scientific Project Manager.
+    </p>
+</div>
+        </field>
+    </record>
+
+    <!-- Email Template: Experiment Completed -->
+    <record id="email_template_experiment_completed" model="mail.template">
+        <field name="name">Experiment Completed Notification</field>
+        <field name="model_id" ref="model_scientific_experiment"/>
+        <field name="subject">Experiment Completed: ${object.name}</field>
+        <field name="email_from">${user.email_formatted|safe}</field>
+        <field name="email_to">${object.project_id.principal_investigator_id.email or ''}</field>
+        <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <h2 style="color: #5cb85c;">✓ Experiment Completed</h2>
+    <p>Hello,</p>
+    <p>An experiment has been marked as completed:</p>
+
+    <div style="background-color: #d4edda; padding: 15px; margin: 20px 0; border-left: 4px solid #5cb85c;">
+        <h3 style="margin-top: 0;">${object.name}</h3>
+        <p><strong>Project:</strong> ${object.project_id.name or 'N/A'}</p>
+        <p><strong>Duration:</strong> ${object.duration_days} days</p>
+        <p><strong>Team:</strong> ${', '.join(object.assigned_to_ids.mapped('name'))}</p>
+        <p><strong>Report Created:</strong> ${'Yes' if object.report_created else 'No'}</p>
+    </div>
+
+    % if object.conclusion:
+    <div style="margin: 20px 0;">
+        <h4>Conclusion:</h4>
+        <p>${object.conclusion[:200]}${'..' if len(object.conclusion or '') > 200 else ''}</p>
+    </div>
+    % endif
+
+    <div style="margin: 30px 0; text-align: center;">
+        <a href="/web#id=${object.id}&amp;model=scientific.experiment&amp;view_type=form"
+           style="background-color: #5cb85c; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+            View Experiment
+        </a>
+    </div>
+
+    <p style="color: #666; font-size: 12px; margin-top: 30px;">
+        This is an automated notification from the Scientific Project Manager.
+    </p>
+</div>
+        </field>
+    </record>
+</odoo>

@@ -1,10 +1,5 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-import re
-import secrets
-import string
-import base64
-import imghdr
 
 class ScientificResearcher(models.Model):
     _name = 'scientific.researcher'
@@ -99,7 +94,7 @@ class ScientificResearcher(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        """Create researcher with secure user account"""
+        """Create researcher with proper error handling for user creation"""
         researchers = super(ScientificResearcher, self).create(vals_list)
         users = self.env['res.users'].sudo()
 
@@ -151,6 +146,15 @@ class ScientificResearcher(models.Model):
                 raise ValidationError(f"Failed to create user account for '{researcher.name}': {str(e)}")
 
         return researchers
+
+    @api.constrains('email')
+    def _check_email(self):
+        """Validate email format"""
+        import re
+        for record in self:
+            if record.email:
+                if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', record.email):
+                    raise ValidationError('Invalid email format!')
 class ScientificResearcherTags(models.Model):
     _name = 'scientific.tags'
     _description = 'Researcher Tags'
