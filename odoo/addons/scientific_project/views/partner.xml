@@ -207,7 +207,7 @@
     <!-- Menu Item -->
     <menuitem id="menu_scientific_partner"
               name="Partners"
-              parent="menu_scientific_project_root"
+              parent="scientific_root"
               action="action_scientific_partner"
               sequence="50"/>
 </odoo>
