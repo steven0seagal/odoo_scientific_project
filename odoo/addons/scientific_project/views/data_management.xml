@@ -197,7 +197,7 @@
     <!-- Menu Item -->
     <menuitem id="menu_scientific_data_management"
               name="Data Management"
-              parent="menu_scientific_project_root"
+              parent="scientific_root"
               action="action_scientific_data_management"
               sequence="45"/>
 </odoo>

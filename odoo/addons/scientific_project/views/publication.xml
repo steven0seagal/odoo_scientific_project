@@ -187,7 +187,7 @@
     <!-- Menu Item -->
     <menuitem id="menu_scientific_publication"
               name="Publications"
-              parent="menu_scientific_project_root"
+              parent="scientific_root"
               action="action_scientific_publication"
               sequence="40"/>
 </odoo>

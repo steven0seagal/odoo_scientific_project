@@ -123,7 +123,7 @@ class ScientificResearcher(models.Model):
 
             try:
                 # Determine user group based on researcher type
-                group_ref = 'scientific_project.group_scientific_user'
+                group_ref = 'scientific_project.group_scientific_researcher'
                 if researcher.type == 'professor':
                     group_ref = 'scientific_project.group_scientific_manager'
 
