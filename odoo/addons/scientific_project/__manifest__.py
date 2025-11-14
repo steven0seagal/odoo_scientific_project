@@ -59,6 +59,7 @@
         'views/publication.xml',
         'views/data_management.xml',
         'views/partner.xml',
+        'views/researcher_invitation_wizard.xml',
     ],
     'demo': [],
     'qweb': [],

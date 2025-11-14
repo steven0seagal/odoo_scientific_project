@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Researcher Invitation Wizard Form View -->
+    <record id="view_researcher_invitation_wizard_form" model="ir.ui.view">
+        <field name="name">researcher.invitation.wizard.form</field>
+        <field name="model">researcher.invitation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Invite Researcher">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Invite New Researcher</h1>
+                        <p class="text-muted">
+                            Send an invitation to a new researcher to join your team.
+                            A user account will be created automatically and credentials will be sent via email.
+                        </p>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="e.g., Dr. Jane Smith"/>
+                            <field name="email" placeholder="jane.smith@university.edu" widget="email"/>
+                            <field name="type" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+                        <group>
+                            <field name="title" placeholder="e.g., Dr., Prof., MSc."/>
+                            <field name="affiliation" placeholder="University or Institution"/>
+                            <field name="specialization" placeholder="e.g., Molecular Biology"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="message" placeholder="Add a personal message to include in the invitation email (optional)..." nolabel="1"/>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        <i class="fa fa-info-circle"/>
+                        <strong>Note:</strong> Only administrators and managers can send invitations to all roles.
+                        The invited researcher will receive an email with instructions to set their password.
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_send_invitation" string="Send Invitation" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open the wizard -->
+    <record id="action_researcher_invitation_wizard" model="ir.actions.act_window">
+        <field name="name">Invite Researcher</field>
+        <field name="res_model">researcher.invitation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_scientific_researcher"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+    <!-- Menu item for inviting researchers -->
+    <menuitem
+        id="menu_researcher_invitation"
+        name="Invite Researcher"
+        parent="researcher_menu"
+        action="action_researcher_invitation_wizard"
+        sequence="2"
+        groups="base.group_system,scientific_project.group_scientific_manager"/>
+
+</odoo>

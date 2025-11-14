@@ -176,4 +176,79 @@
 </div>
         </field>
     </record>
+
+    <!-- Email Template: Researcher Invitation -->
+    <record id="email_template_researcher_invitation" model="mail.template">
+        <field name="name">Researcher Invitation</field>
+        <field name="model_id" ref="model_scientific_researcher"/>
+        <field name="subject">Welcome to Scientific Project Manager - Your Account Has Been Created</field>
+        <field name="email_from">${user.email_formatted|safe}</field>
+        <field name="email_to">${object.email}</field>
+        <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <div style="background-color: #2c5aa0; color: white; padding: 20px; text-align: center;">
+        <h1 style="margin: 0;">Welcome to Scientific Project Manager</h1>
+    </div>
+
+    <div style="padding: 30px; background-color: #f9f9f9;">
+        <p>Hello ${object.name},</p>
+
+        <p>You have been invited to join our scientific research team! We're excited to have you on board.</p>
+
+        <div style="background-color: white; padding: 20px; margin: 20px 0; border-left: 4px solid #2c5aa0; border-radius: 5px;">
+            <h3 style="margin-top: 0; color: #2c5aa0;">Your Account Details</h3>
+            <p><strong>Name:</strong> ${object.name}</p>
+            <p><strong>Email:</strong> ${object.email}</p>
+            <p><strong>Role:</strong>
+                % if object.type == 'professor':
+                    Professor (Manager)
+                % elif object.type == 'researcher':
+                    Researcher
+                % elif object.type == 'student':
+                    Student
+                % else:
+                    ${object.type or 'Researcher'}
+                % endif
+            </p>
+            % if object.specialization:
+            <p><strong>Specialization:</strong> ${object.specialization}</p>
+            % endif
+        </div>
+
+        % if ctx.get('personal_message'):
+        <div style="background-color: #fff3cd; padding: 15px; margin: 20px 0; border-left: 4px solid #f0ad4e; border-radius: 5px;">
+            <h4 style="margin-top: 0; color: #856404;">Personal Message from ${ctx.get('inviter_name', 'your team')}</h4>
+            <p style="color: #856404;">${ctx.get('personal_message')}</p>
+        </div>
+        % endif
+
+        <div style="background-color: #d4edda; padding: 15px; margin: 20px 0; border-left: 4px solid #5cb85c; border-radius: 5px;">
+            <h4 style="margin-top: 0; color: #155724;">Next Steps</h4>
+            <ol style="color: #155724; margin: 10px 0; padding-left: 20px;">
+                <li>Click the button below to access the platform</li>
+                <li>You will receive a separate email to reset your password</li>
+                <li>Once logged in, complete your profile information</li>
+                <li>Start collaborating on research projects!</li>
+            </ol>
+        </div>
+
+        <div style="margin: 30px 0; text-align: center;">
+            <a href="${ctx.get('login_url', '/web')}/web/login"
+               style="background-color: #2c5aa0; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
+                Access Platform
+            </a>
+        </div>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
+            <p style="color: #666; font-size: 13px;">
+                If you have any questions or need assistance, please don't hesitate to contact your team administrator.
+            </p>
+            <p style="color: #666; font-size: 12px; margin-top: 20px;">
+                This is an automated invitation from the Scientific Project Manager.
+            </p>
+        </div>
+    </div>
+</div>
+        </field>
+    </record>
 </odoo>
