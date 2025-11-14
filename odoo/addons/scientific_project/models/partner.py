@@ -101,3 +101,14 @@ class ScientificPartner(models.Model):
             'domain': [('id', 'in', self.project_ids.ids)],
         }
 
+    def action_view_active_projects(self):
+        """View active projects"""
+        active_project_ids = self.project_ids.filtered(lambda p: p.status == 'in_progress')
+        return {
+            'name': 'Active Projects',
+            'type': 'ir.actions.act_window',
+            'res_model': 'scientific.project',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', active_project_ids.ids)],
+        }
+

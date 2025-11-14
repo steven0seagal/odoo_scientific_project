@@ -132,3 +132,23 @@ class ScientificExperiment(models.Model):
             'view_mode': 'form',
             'target': 'current',
         }
+
+    def action_view_researchers(self):
+        """Smart button action to view assigned researchers"""
+        return {
+            'name': 'Researchers',
+            'type': 'ir.actions.act_window',
+            'res_model': 'scientific.researcher',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.assigned_to_ids.ids)],
+        }
+
+    def action_view_equipment(self):
+        """Smart button action to view equipment"""
+        return {
+            'name': 'Equipment',
+            'type': 'ir.actions.act_window',
+            'res_model': 'scientific.equipment',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.equipment_ids.ids)],
+        }
