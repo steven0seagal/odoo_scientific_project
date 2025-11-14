@@ -1,4 +1,18 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_scientific_project_admin,scientific.project.admin,model_scientific_project,base.group_system,1,1,1,1
+access_scientific_task_admin,scientific.task.admin,model_scientific_task,base.group_system,1,1,1,1
+access_scientific_document_admin,scientific.document.admin,model_scientific_document,base.group_system,1,1,1,1
+access_scientific_experiment_admin,scientific.experiment.admin,model_scientific_experiment,base.group_system,1,1,1,1
+access_scientific_researcher_admin,scientific.researcher.admin,model_scientific_researcher,base.group_system,1,1,1,1
+access_scientific_tag_admin,scientific.tags.admin,model_scientific_tags,base.group_system,1,1,1,1
+access_scientific_equipment_admin,scientific.equipment.admin,model_scientific_equipment,base.group_system,1,1,1,1
+access_scientific_reagent_admin,scientific.reagent.admin,model_scientific_reagent,base.group_system,1,1,1,1
+access_scientific_schedule_admin,scientific.schedule.admin,model_scientific_schedule,base.group_system,1,1,1,1
+access_scientific_publication_admin,scientific.publication.admin,model_scientific_publication,base.group_system,1,1,1,1
+access_scientific_data_admin,scientific.data_management.admin,model_scientific_data_management,base.group_system,1,1,1,1
+access_scientific_partner_admin,scientific.partner.admin,model_scientific_partner,base.group_system,1,1,1,1
+access_scientific_funding_admin,scientific.funding.admin,model_scientific_funding,base.group_system,1,1,1,1
+access_scientific_dashboard_admin,scientific.dashboard.admin,model_scientific_dashboard,base.group_system,1,1,1,1
 access_scientific_project_manager,scientific.project.manager,model_scientific_project,group_scientific_manager,1,1,1,1
 access_scientific_task_manager,scientific.task.manager,model_scientific_task,group_scientific_manager,1,1,1,1
 access_scientific_document_manager,scientific.document.manager,model_scientific_document,group_scientific_manager,1,1,1,1
@@ -69,3 +83,5 @@ access_scientific_dashboard_pi,scientific.dashboard.pi,model_scientific_dashboar
 access_scientific_dashboard_researcher,scientific.dashboard.researcher,model_scientific_dashboard,group_scientific_researcher,1,1,1,0
 access_scientific_dashboard_technician,scientific.dashboard.technician,model_scientific_dashboard,group_scientific_technician,1,1,1,0
 access_scientific_dashboard_observer,scientific.dashboard.observer,model_scientific_dashboard,group_scientific_observer,1,1,1,0
+access_researcher_invitation_wizard_admin,researcher.invitation.wizard.admin,model_researcher_invitation_wizard,base.group_system,1,1,1,1
+access_researcher_invitation_wizard_manager,researcher.invitation.wizard.manager,model_researcher_invitation_wizard,group_scientific_manager,1,1,1,1

@@ -8,6 +8,150 @@
             <field name="sequence">10</field>
         </record>
 
+        <!-- Admin Access Rules (Override all restrictions for system administrators) -->
+        <record id="rule_admin_all_projects" model="ir.rule">
+            <field name="name">Admin: Full Project Access</field>
+            <field name="model_id" ref="model_scientific_project"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_tasks" model="ir.rule">
+            <field name="name">Admin: Full Task Access</field>
+            <field name="model_id" ref="model_scientific_task"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_experiments" model="ir.rule">
+            <field name="name">Admin: Full Experiment Access</field>
+            <field name="model_id" ref="model_scientific_experiment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_documents" model="ir.rule">
+            <field name="name">Admin: Full Document Access</field>
+            <field name="model_id" ref="model_scientific_document"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_researchers" model="ir.rule">
+            <field name="name">Admin: Full Researcher Access</field>
+            <field name="model_id" ref="model_scientific_researcher"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_data" model="ir.rule">
+            <field name="name">Admin: Full Data Management Access</field>
+            <field name="model_id" ref="model_scientific_data_management"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_equipment" model="ir.rule">
+            <field name="name">Admin: Full Equipment Access</field>
+            <field name="model_id" ref="model_scientific_equipment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_reagents" model="ir.rule">
+            <field name="name">Admin: Full Reagent Access</field>
+            <field name="model_id" ref="model_scientific_reagent"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_schedules" model="ir.rule">
+            <field name="name">Admin: Full Schedule Access</field>
+            <field name="model_id" ref="model_scientific_schedule"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_publications" model="ir.rule">
+            <field name="name">Admin: Full Publication Access</field>
+            <field name="model_id" ref="model_scientific_publication"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_partners" model="ir.rule">
+            <field name="name">Admin: Full Partner Access</field>
+            <field name="model_id" ref="model_scientific_partner"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_funding" model="ir.rule">
+            <field name="name">Admin: Full Funding Access</field>
+            <field name="model_id" ref="model_scientific_funding"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="rule_admin_all_tags" model="ir.rule">
+            <field name="name">Admin: Full Tags Access</field>
+            <field name="model_id" ref="model_scientific_tags"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
         <!-- Security Groups -->
 
         <!-- Guest/Observer: Read-only access -->
