@@ -108,7 +108,7 @@
                             <field name="equipment_ids">
                                 <tree>
                                     <field name="name"/>
-                                    <field name="type"/>
+                                    <field name="equipment_type"/>
                                     <field name="status"/>
                                     <field name="location"/>
                                 </tree>
