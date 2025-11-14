@@ -56,10 +56,10 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button class="oe_stat_button" type="object" icon="fa-users">
+                        <button class="oe_stat_button" type="object" name="action_view_researchers" icon="fa-users">
                             <field string="Researchers" name="assigned_researcher_count" widget="statinfo"/>
                         </button>
-                        <button class="oe_stat_button" type="object" icon="fa-wrench">
+                        <button class="oe_stat_button" type="object" name="action_view_equipment" icon="fa-wrench">
                             <field string="Equipment" name="equipment_count" widget="statinfo"/>
                         </button>
                     </div>
