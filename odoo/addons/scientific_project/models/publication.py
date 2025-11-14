@@ -52,6 +52,7 @@ class ScientificPublication(models.Model):
     author_count = fields.Integer(string='Authors', compute='_compute_author_count', store=True)
     is_published = fields.Boolean(string='Published', compute='_compute_is_published', store=True)
     citation_info = fields.Char(string='Citation', compute='_compute_citation_info')
+    experiment_count = fields.Integer(string='Experiments', compute='_compute_experiment_count')
 
     @api.depends('authors_ids')
     def _compute_author_count(self):
@@ -75,6 +76,12 @@ class ScientificPublication(models.Model):
             year = record.publication_date.year if record.publication_date else 'n.d.'
             journal = record.journal_conference or 'Unknown'
             record.citation_info = f'{authors} ({year}). {record.title}. {journal}.'
+
+    @api.depends('experiment_ids')
+    def _compute_experiment_count(self):
+        """Count number of related experiments"""
+        for record in self:
+            record.experiment_count = len(record.experiment_ids)
 
     @api.constrains('doi')
     def _check_doi(self):
@@ -121,3 +128,14 @@ class ScientificPublication(models.Model):
     def action_reject(self):
         """Mark publication as rejected"""
         self.status = 'rejected'
+
+    def action_view_experiments(self):
+        """Smart button action to view related experiments"""
+        return {
+            'name': 'Experiments',
+            'type': 'ir.actions.act_window',
+            'res_model': 'scientific.experiment',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.experiment_ids.ids)],
+            'context': {'default_publication_ids': [(4, self.id)]}
+        }

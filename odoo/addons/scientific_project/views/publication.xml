@@ -43,9 +43,8 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button class="oe_stat_button" type="object" name="%(action_scientific_experiment)d"
-                                icon="fa-flask" context="{'search_default_project_id': active_id}">
-                            <field string="Experiments" name="experiment_ids" widget="statinfo"/>
+                        <button class="oe_stat_button" type="object" name="action_view_experiments" icon="fa-flask">
+                            <field string="Experiments" name="experiment_count" widget="statinfo"/>
                         </button>
                     </div>
                     <group>
