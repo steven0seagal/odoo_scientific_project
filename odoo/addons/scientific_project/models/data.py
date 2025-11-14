@@ -54,8 +54,8 @@ class ScientificDataManagement(models.Model):
     notes = fields.Text(string='Notes')
 
     # Computed fields
-    age_days = fields.Integer(string='Age (Days)', compute='_compute_age_days')
-    is_recent = fields.Boolean(string='Recent', compute='_compute_is_recent')
+    age_days = fields.Integer(string='Age (Days)', compute='_compute_age_days', store=True)
+    is_recent = fields.Boolean(string='Recent', compute='_compute_is_recent', store=True)
 
     @api.depends('upload_date')
     def _compute_age_days(self):

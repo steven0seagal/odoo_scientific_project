@@ -53,7 +53,7 @@ class ScientificPartner(models.Model):
 
     # Computed fields
     project_count = fields.Integer(string='Projects', compute='_compute_project_count', store=True)
-    active_projects = fields.Integer(string='Active Projects', compute='_compute_active_projects')
+    active_projects = fields.Integer(string='Active Projects', compute='_compute_active_projects', store=True)
     is_active = fields.Boolean(string='Active', compute='_compute_is_active')
 
     @api.depends('project_ids')
