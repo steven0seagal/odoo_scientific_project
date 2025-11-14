@@ -9,6 +9,8 @@
     'website' : 'www.example.com',
     'depends' : ['mail','base'],
     'data' : [
+        'security/security.xml',
+        'security/ir.rule.xml',
         'security/ir.model.access.csv',
         'views/project.xml',
         'views/task.xml',
@@ -18,6 +20,9 @@
         'views/equipment.xml',
         'views/reagents.xml',
         'views/schedule.xml',
+        'views/publication.xml',
+        'views/data_management.xml',
+        'views/partner.xml',
     ],
     'demo' : [],
     'installable' : True,

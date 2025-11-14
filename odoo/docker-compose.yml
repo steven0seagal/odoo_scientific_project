@@ -8,10 +8,12 @@ services:
     ports:
       - 5431:5431/tcp
     environment:
-    - POSTGRES_PASSWORD=odoo
-    - POSTGRES_USER=odoo
-    - POSTGRES_DB=postgres
+    - POSTGRES_PASSWORD=${DB_PASSWORD:-odoo}
+    - POSTGRES_USER=${DB_USER:-odoo}
+    - POSTGRES_DB=${DB_NAME:-postgres}
     - PGDATA=/var/lib/postgresql/data/pgdata
+    env_file:
+      - .env
   web:
     image: odoo:18
     depends_on:

@@ -95,13 +95,39 @@
                     <field name="status" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" />
                 </header>
                     <sheet>
+                        <!-- Smart Buttons -->
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_tasks" type="object" class="oe_stat_button" icon="fa-tasks">
+                                <field name="task_count" widget="statinfo" string="Tasks"/>
+                            </button>
+                            <button name="action_view_experiments" type="object" class="oe_stat_button" icon="fa-flask">
+                                <field name="experiment_count" widget="statinfo" string="Experiments"/>
+                            </button>
+                            <button name="action_view_documents" type="object" class="oe_stat_button" icon="fa-file-text-o">
+                                <field name="document_count" widget="statinfo" string="Documents"/>
+                            </button>
+                            <button name="action_view_publications" type="object" class="oe_stat_button" icon="fa-book">
+                                <field name="publication_count" widget="statinfo" string="Publications"/>
+                            </button>
+                        </div>
 
+                        <!-- Project Info Fields -->
                         <group>
-                            <field name="name"/>
-                            <field name="start_date"/>
-                            <field name="end_date"/>
-                            <field name="principal_investigator_id"/>
-
+                            <group>
+                                <field name="name"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="principal_investigator_id"/>
+                            </group>
+                            <group>
+                                <field name="progress_percentage" widget="progressbar"/>
+                                <field name="team_size"/>
+                                <field name="days_remaining" attrs="{'invisible': [('days_remaining', '&lt;=', 0)]}"/>
+                                <field name="is_overdue" invisible="1"/>
+                                <field name="days_overdue" attrs="{'invisible': [('is_overdue', '=', False)]}" string="Days Overdue"/>
+                            </group>
+                        </group>
+                        <group>
                             <field name="description"/>
                         </group>
                         <notebook>
