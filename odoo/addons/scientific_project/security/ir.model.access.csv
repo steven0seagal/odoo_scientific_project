@@ -1,5 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-# Manager - Full access to everything
 access_scientific_project_manager,scientific.project.manager,model_scientific_project,group_scientific_manager,1,1,1,1
 access_scientific_task_manager,scientific.task.manager,model_scientific_task,group_scientific_manager,1,1,1,1
 access_scientific_document_manager,scientific.document.manager,model_scientific_document,group_scientific_manager,1,1,1,1
@@ -13,7 +12,6 @@ access_scientific_publication_manager,scientific.publication.manager,model_scien
 access_scientific_data_manager,scientific.data_management.manager,model_scientific_data_management,group_scientific_manager,1,1,1,1
 access_scientific_partner_manager,scientific.partner.manager,model_scientific_partner,group_scientific_manager,1,1,1,1
 access_scientific_funding_manager,scientific.funding.manager,model_scientific_funding,group_scientific_manager,1,1,1,1
-# Principal Investigator - Full project access
 access_scientific_project_pi,scientific.project.pi,model_scientific_project,group_scientific_pi,1,1,1,0
 access_scientific_task_pi,scientific.task.pi,model_scientific_task,group_scientific_pi,1,1,1,0
 access_scientific_document_pi,scientific.document.pi,model_scientific_document,group_scientific_pi,1,1,1,0
@@ -27,7 +25,6 @@ access_scientific_publication_pi,scientific.publication.pi,model_scientific_publ
 access_scientific_data_pi,scientific.data_management.pi,model_scientific_data_management,group_scientific_pi,1,1,1,0
 access_scientific_partner_pi,scientific.partner.pi,model_scientific_partner,group_scientific_pi,1,1,1,0
 access_scientific_funding_pi,scientific.funding.pi,model_scientific_funding,group_scientific_pi,1,1,0,0
-# Researcher - Read/Write own assignments
 access_scientific_project_researcher,scientific.project.researcher,model_scientific_project,group_scientific_researcher,1,1,1,0
 access_scientific_task_researcher,scientific.task.researcher,model_scientific_task,group_scientific_researcher,1,1,1,0
 access_scientific_document_researcher,scientific.document.researcher,model_scientific_document,group_scientific_researcher,1,1,1,0
@@ -41,7 +38,6 @@ access_scientific_publication_researcher,scientific.publication.researcher,model
 access_scientific_data_researcher,scientific.data_management.researcher,model_scientific_data_management,group_scientific_researcher,1,1,1,0
 access_scientific_partner_researcher,scientific.partner.researcher,model_scientific_partner,group_scientific_researcher,1,0,0,0
 access_scientific_funding_researcher,scientific.funding.researcher,model_scientific_funding,group_scientific_researcher,1,0,0,0
-# Technician - Equipment and reagent management
 access_scientific_project_technician,scientific.project.technician,model_scientific_project,group_scientific_technician,1,0,0,0
 access_scientific_task_technician,scientific.task.technician,model_scientific_task,group_scientific_technician,1,0,0,0
 access_scientific_document_technician,scientific.document.technician,model_scientific_document,group_scientific_technician,1,0,0,0
@@ -55,7 +51,6 @@ access_scientific_publication_technician,scientific.publication.technician,model
 access_scientific_data_technician,scientific.data_management.technician,model_scientific_data_management,group_scientific_technician,1,0,0,0
 access_scientific_partner_technician,scientific.partner.technician,model_scientific_partner,group_scientific_technician,1,0,0,0
 access_scientific_funding_technician,scientific.funding.technician,model_scientific_funding,group_scientific_technician,1,0,0,0
-# Observer - Read-only access
 access_scientific_project_observer,scientific.project.observer,model_scientific_project,group_scientific_observer,1,0,0,0
 access_scientific_task_observer,scientific.task.observer,model_scientific_task,group_scientific_observer,1,0,0,0
 access_scientific_document_observer,scientific.document.observer,model_scientific_document,group_scientific_observer,1,0,0,0
@@ -69,3 +64,8 @@ access_scientific_publication_observer,scientific.publication.observer,model_sci
 access_scientific_data_observer,scientific.data_management.observer,model_scientific_data_management,group_scientific_observer,1,0,0,0
 access_scientific_partner_observer,scientific.partner.observer,model_scientific_partner,group_scientific_observer,1,0,0,0
 access_scientific_funding_observer,scientific.funding.observer,model_scientific_funding,group_scientific_observer,1,0,0,0
+access_scientific_dashboard_manager,scientific.dashboard.manager,model_scientific_dashboard,group_scientific_manager,1,0,0,0
+access_scientific_dashboard_pi,scientific.dashboard.pi,model_scientific_dashboard,group_scientific_pi,1,0,0,0
+access_scientific_dashboard_researcher,scientific.dashboard.researcher,model_scientific_dashboard,group_scientific_researcher,1,0,0,0
+access_scientific_dashboard_technician,scientific.dashboard.technician,model_scientific_dashboard,group_scientific_technician,1,0,0,0
+access_scientific_dashboard_observer,scientific.dashboard.observer,model_scientific_dashboard,group_scientific_observer,1,0,0,0

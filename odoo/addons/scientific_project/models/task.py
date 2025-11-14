@@ -136,3 +136,13 @@ class ScientificTask(models.Model):
     def action_cancelled(self):
         """Set task status to cancelled"""
         self.status = 'cancelled'
+
+    def action_view_assigned(self):
+        """Smart button action to view assigned researchers"""
+        return {
+            'name': 'Assigned Researchers',
+            'type': 'ir.actions.act_window',
+            'res_model': 'scientific.researcher',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.assigned_to_ids.ids)],
+        }

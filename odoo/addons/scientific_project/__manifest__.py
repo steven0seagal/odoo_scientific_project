@@ -36,7 +36,7 @@
     'author': 'Scientific Project Team',
     'website': 'www.example.com',
     'license': 'LGPL-3',
-    'depends': ['mail', 'base'],
+    'depends': ['mail', 'base', 'base_automation'],
     'data': [
         # Security
         'security/security.xml',
@@ -46,9 +46,9 @@
         'data/mail_templates.xml',
         'data/automated_actions.xml',
 
-        # Views
-        'views/dashboard.xml',
+        # Views - project.xml must be loaded first as it defines the main menu
         'views/project.xml',
+        'views/dashboard.xml',
         'views/task.xml',
         'views/document.xml',
         'views/experiment.xml',

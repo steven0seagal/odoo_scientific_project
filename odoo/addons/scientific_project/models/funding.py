@@ -3,6 +3,7 @@ from odoo import models, fields
 class ScientificFunding(models.Model):
     _name = 'scientific.funding'
     _description = 'Funding'
+    _rec_name = 'source'
 
     source = fields.Char(string='Source', required=True)
     budget = fields.Float(string='Budget')

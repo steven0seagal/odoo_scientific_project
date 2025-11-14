@@ -47,27 +47,6 @@
             <field name="category_id" ref="module_category_scientific_project"/>
             <field name="implied_ids" eval="[(4, ref('group_scientific_pi'))]"/>
             <field name="comment">Full administrative access to all features</field>
-        <!-- Read-only User: Can only view records they're assigned to -->
-        <record id="group_scientific_readonly" model="res.groups">
-            <field name="name">Scientific User: Read Only</field>
-            <field name="category_id" ref="module_category_scientific"/>
-            <field name="comment">Read-only access to assigned projects and experiments</field>
-        </record>
-
-        <!-- Regular User: Can create and modify own records -->
-        <record id="group_scientific_user" model="res.groups">
-            <field name="name">Scientific User</field>
-            <field name="category_id" ref="module_category_scientific"/>
-            <field name="implied_ids" eval="[(4, ref('group_scientific_readonly'))]"/>
-            <field name="comment">Standard user with create, read, and write access to assigned records</field>
-        </record>
-
-        <!-- Manager: Full access to all records -->
-        <record id="group_scientific_manager" model="res.groups">
-            <field name="name">Scientific Manager</field>
-            <field name="category_id" ref="module_category_scientific"/>
-            <field name="implied_ids" eval="[(4, ref('group_scientific_user'))]"/>
-            <field name="comment">Full administrative access to all scientific data</field>
         </record>
 
         <!-- Record Rules for Data Isolation -->
@@ -184,6 +163,8 @@
             <field name="perm_write" eval="1"/>
             <field name="perm_create" eval="1"/>
             <field name="perm_unlink" eval="1"/>
+        </record>
+
         <!-- PROJECT RULES -->
         <!-- Managers can see all projects -->
         <record id="scientific_project_manager_rule" model="ir.rule">
@@ -206,7 +187,7 @@
                 ('principal_investigator_id.user_id', '=', user.id),
                 ('collaborators_ids.user_id', 'in', [user.id])
             ]</field>
-            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="groups" eval="[(4, ref('group_scientific_researcher'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
             <field name="perm_create" eval="True"/>
@@ -222,7 +203,7 @@
                 ('principal_investigator_id.user_id', '=', user.id),
                 ('collaborators_ids.user_id', 'in', [user.id])
             ]</field>
-            <field name="groups" eval="[(4, ref('group_scientific_readonly'))]"/>
+            <field name="groups" eval="[(4, ref('group_scientific_observer'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
@@ -243,7 +224,7 @@
             <field name="name">Task: User Access</field>
             <field name="model_id" ref="model_scientific_task"/>
             <field name="domain_force">[('assigned_to_ids.user_id', 'in', [user.id])]</field>
-            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="groups" eval="[(4, ref('group_scientific_researcher'))]"/>
         </record>
 
         <!-- EXPERIMENT RULES -->
@@ -260,7 +241,7 @@
             <field name="name">Experiment: User Access</field>
             <field name="model_id" ref="model_scientific_experiment"/>
             <field name="domain_force">[('assigned_to_ids.user_id', 'in', [user.id])]</field>
-            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="groups" eval="[(4, ref('group_scientific_researcher'))]"/>
         </record>
 
         <!-- DOCUMENT RULES -->
@@ -283,7 +264,7 @@
                 ('author_ids.user_id', 'in', [user.id]),
                 ('project_id.collaborators_ids.user_id', 'in', [user.id])
             ]</field>
-            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="groups" eval="[(4, ref('group_scientific_researcher'))]"/>
         </record>
 
         <!-- RESEARCHER RULES -->
@@ -300,7 +281,7 @@
             <field name="name">Researcher: User Access</field>
             <field name="model_id" ref="model_scientific_researcher"/>
             <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="groups" eval="[(4, ref('group_scientific_researcher'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
@@ -321,7 +302,7 @@
             <field name="name">Equipment: User Access</field>
             <field name="model_id" ref="model_scientific_equipment"/>
             <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="groups" eval="[(4, ref('group_scientific_researcher'))]"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
             <field name="perm_create" eval="False"/>
@@ -342,7 +323,7 @@
             <field name="name">Reagent: User Access</field>
             <field name="model_id" ref="model_scientific_reagent"/>
             <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="groups" eval="[(4, ref('group_scientific_researcher'))]"/>
         </record>
 
         <!-- SCHEDULE RULES -->
@@ -359,7 +340,7 @@
             <field name="name">Schedule: User Access</field>
             <field name="model_id" ref="model_scientific_schedule"/>
             <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="groups" eval="[(4, ref('group_scientific_researcher'))]"/>
         </record>
 
         <!-- TAGS RULES -->
@@ -368,7 +349,7 @@
             <field name="name">Tags: User Access</field>
             <field name="model_id" ref="model_scientific_tags"/>
             <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups" eval="[(4, ref('group_scientific_user'))]"/>
+            <field name="groups" eval="[(4, ref('group_scientific_researcher'))]"/>
         </record>
 
     </data>

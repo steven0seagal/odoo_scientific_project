@@ -33,7 +33,7 @@ class Project(models.Model):
     publication_count = fields.Integer(string='Publications', compute='_compute_publication_count', store=True)
     completion_percentage = fields.Float(string='Completion %', compute='_compute_completion_percentage', store=True)
     days_remaining = fields.Integer(string='Days Remaining', compute='_compute_days_remaining')
-    is_overdue = fields.Boolean(string='Overdue', compute='_compute_is_overdue')
+    is_overdue = fields.Boolean(string='Overdue', compute='_compute_is_overdue', store=True, search='_search_is_overdue')
     total_budget = fields.Float(string='Total Budget', compute='_compute_budget', store=True)
 
     # Relations for computed fields
@@ -88,11 +88,28 @@ class Project(models.Model):
             else:
                 record.is_overdue = False
 
-    @api.depends('funding.amount')
+    @api.depends('funding.budget')
     def _compute_budget(self):
         """Calculate total budget from funding sources"""
         for record in self:
-            record.total_budget = sum(record.funding.mapped('amount'))
+            record.total_budget = sum(record.funding.mapped('budget'))
+
+    def _search_is_overdue(self, operator, value):
+        """Search method for is_overdue field"""
+        today = date.today()
+        if (operator == '=' and value) or (operator == '!=' and not value):
+            # Search for overdue projects
+            return [
+                ('end_date', '<', today),
+                ('status', 'not in', ['done', 'cancelled'])
+            ]
+        else:
+            # Search for non-overdue projects
+            return [
+                '|',
+                ('end_date', '>=', today),
+                ('status', 'in', ['done', 'cancelled'])
+            ]
 
     @api.constrains('start_date', 'end_date')
     def _check_dates(self):
@@ -102,31 +119,11 @@ class Project(models.Model):
                 if record.end_date < record.start_date:
                     raise ValidationError('End date must be after start date!')
 
-    ], string='Status', default='draft', tracking=True, required=True)
-    document_id = fields.Many2many('scientific.document', string='Document', tracking=True)
-    funding = fields.Many2many('scientific.funding', string='Funding')
-    principal_investigator_id = fields.Many2one('scientific.researcher', string='Principal Investigator',
-                                                 tracking=True, required=True,
-                                                 help="Lead researcher responsible for the project")
-    collaborators_ids = fields.Many2many('scientific.researcher', string='Collaborators', tracking=True)
-    notes = fields.Text(string='Notes')
-
     # SQL Constraints
     _sql_constraints = [
         ('name_unique', 'UNIQUE(name)', 'Project name must be unique!'),
     ]
 
-    @api.constrains('start_date', 'end_date')
-    def _check_date_range(self):
-        """Validate that end date is not before start date"""
-        for record in self:
-            if record.start_date and record.end_date:
-                if record.end_date < record.start_date:
-                    raise ValidationError(
-                        "End date cannot be earlier than start date.\n"
-                        f"Start: {record.start_date}\n"
-                        f"End: {record.end_date}"
-                    )
     def action_draft(self):
         """Set project status to draft"""
         self.status = 'draft'

@@ -115,9 +115,8 @@ if record.project_id:
         <field name="state">code</field>
         <field name="code">
 # Find all overdue tasks
-from datetime import date
 overdue_tasks = env['scientific.task'].search([
-    ('end_date', '&lt;', date.today()),
+    ('end_date', '&lt;', datetime.date.today()),
     ('status', 'not in', ['done', 'cancelled'])
 ])
 

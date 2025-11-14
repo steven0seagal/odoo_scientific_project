@@ -1,25 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!--MODEL MAIN VIEW    -->
-    <record id="project_action" model="ir.actions.act_window">
-        <field name="name">Scientific</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">scientific.project</field>
-        <field name="view_mode">kanban,tree,form,calendar</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new scientific project
-            </p>
-        </field>
-    </record>
-
     <!--  View all projects    -->
     <record id="project_action_all" model="ir.actions.act_window">
         <field name="name">All Projects</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">scientific.project</field>
         <field name="view_mode">tree,kanban,form,gantt,calendar</field>
-        <field name="search_view_id" ref="view_project_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new scientific project
@@ -154,9 +140,8 @@
                         <page string="Funding">
                             <field name="funding">
                                 <tree editable="bottom">
-                                    <field name="name"/>
                                     <field name="source"/>
-                                    <field name="amount"/>
+                                    <field name="budget"/>
                                     <field name="start_date"/>
                                     <field name="end_date"/>
                                 </tree>
@@ -219,7 +204,6 @@
                 <field name="status"/>
                 <filter string="My Projects" name="my_projects"
                         domain="[('principal_investigator_id.user_id', '=', uid)]"/>
-                <filter string="Overdue" name="overdue" domain="[('is_overdue', '=', True)]"/>
                 <separator/>
                 <filter string="Draft" name="draft" domain="[('status', '=', 'draft')]"/>
                 <filter string="In Progress" name="in_progress" domain="[('status', '=', 'in_progress')]"/>
@@ -269,24 +253,16 @@
 
 
     <menuitem id="scientific_root"
-              name="Scientific"
+              name="Scientific Project"
               sequence="10"/>
-
-
 
     <menuitem id="scientific_projects_root"
               name="Projects"
               parent="scientific_root"
               sequence="10"/>
 
-    <menuitem id="scientific_project_menu_action"
-                name="Projects"
-                parent="scientific_projects_root"
-                action="project_action_new"
-                sequence="10"/>
-
-    <menuitem id="scientific_project_menu_action"
-            name="Projects"
+    <menuitem id="scientific_project_menu_all"
+            name="All Projects"
             parent="scientific_projects_root"
             action="project_action_all"
             sequence="10"/>

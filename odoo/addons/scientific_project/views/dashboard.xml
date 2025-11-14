@@ -20,13 +20,13 @@
                                     <span class="o_stat_text">Active Projects</span>
                                 </div>
                             </button>
-                            <button type="object" class="oe_stat_button" icon="fa-check-circle" attrs="{'invisible': [('completed_projects', '=', 0)]}">
+                            <button class="oe_stat_button" icon="fa-check-circle" attrs="{'invisible': [('completed_projects', '=', 0)]}">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value"><field name="completed_projects"/></span>
                                     <span class="o_stat_text">Completed</span>
                                 </div>
                             </button>
-                            <button type="object" class="oe_stat_button" icon="fa-exclamation-triangle" attrs="{'invisible': [('overdue_projects', '=', 0)]}">
+                            <button class="oe_stat_button" icon="fa-exclamation-triangle" attrs="{'invisible': [('overdue_projects', '=', 0)]}">
                                 <div class="o_field_widget o_stat_info o_warning">
                                     <span class="o_stat_value"><field name="overdue_projects"/></span>
                                     <span class="o_stat_text">Overdue</span>
@@ -48,7 +48,7 @@
                                     <span class="o_stat_text">Overdue</span>
                                 </div>
                             </button>
-                            <button type="object" class="oe_stat_button" icon="fa-calendar-check-o">
+                            <button class="oe_stat_button" icon="fa-calendar-check-o">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value"><field name="completed_this_week"/></span>
                                     <span class="o_stat_text">Done This Week</span>
@@ -66,7 +66,7 @@
                                     <span class="o_stat_text">Active Experiments</span>
                                 </div>
                             </button>
-                            <button type="object" class="oe_stat_button" icon="fa-check">
+                            <button class="oe_stat_button" icon="fa-check">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value"><field name="completed_experiments"/></span>
                                     <span class="o_stat_text">Completed</span>
@@ -82,20 +82,20 @@
                                     <span class="o_stat_text">Published This Year</span>
                                 </div>
                             </button>
-                            <button type="object" class="oe_stat_button" icon="fa-hourglass-half" attrs="{'invisible': [('in_review', '=', 0)]}">
+                            <button class="oe_stat_button" icon="fa-hourglass-half" attrs="{'invisible': [('in_review', '=', 0)]}">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value"><field name="in_review"/></span>
                                     <span class="o_stat_text">In Review</span>
                                 </div>
                             </button>
                             <separator/>
-                            <button type="object" class="oe_stat_button" icon="fa-users">
+                            <button class="oe_stat_button" icon="fa-users">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value"><field name="total_researchers"/></span>
                                     <span class="o_stat_text">Researchers</span>
                                 </div>
                             </button>
-                            <button type="object" class="oe_stat_button" icon="fa-wrench">
+                            <button class="oe_stat_button" icon="fa-wrench">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_value"><field name="available_equipment"/></span>
                                     <span class="o_stat_text">Available Equipment</span>
