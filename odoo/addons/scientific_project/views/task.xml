@@ -5,7 +5,6 @@
     <record model="ir.ui.view" id="project_task_list_view">
         <field name="name">scientific.task.list</field>
         <field name="model">scientific.task</field>
-        <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree decoration-danger="is_overdue" decoration-success="status=='done'" decoration-muted="status=='cancelled'">
                 <field name="priority" widget="priority"/>
@@ -29,7 +28,6 @@
     <record model="ir.ui.view" id="project_task_form_view">
         <field name="name">scientific.task.form</field>
         <field name="model">scientific.task</field>
-        <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -95,7 +93,6 @@
     <record model="ir.ui.view" id="project_task_kanban_view">
         <field name="name">scientific.task.kanban</field>
         <field name="model">scientific.task</field>
-        <field name="type">kanban</field>
         <field name="arch" type="xml">
             <kanban default_group_by="status" class="o_kanban_small_column">
                 <field name="id"/>
@@ -142,7 +139,6 @@
     <record model="ir.ui.view" id="project_task_calendar_view">
         <field name="name">scientific.task.calendar</field>
         <field name="model">scientific.task</field>
-        <field name="type">calendar</field>
         <field name="arch" type="xml">
             <calendar string="Tasks" date_start="start_date" date_stop="end_date" mode="month" color="priority">
                 <field name="name"/>

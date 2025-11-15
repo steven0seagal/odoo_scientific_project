@@ -8,7 +8,6 @@
     <record model="ir.ui.view" id="reagent_list_view">
         <field name="name">scientific.reagent.list</field>
         <field name="model">scientific.reagent</field>
-        <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -26,7 +25,6 @@
     <record model="ir.ui.view" id="reagent_form_view">
         <field name="name">scientific.reagent.form</field>
         <field name="model">scientific.reagent</field>
-        <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -60,7 +58,6 @@
     <record model="ir.ui.view" id="reagent_kanban_view">
         <field name="name">scientific.reagent.kanban</field>
         <field name="model">scientific.reagent</field>
-        <field name="type">kanban</field>
         <field name="arch" type="xml">
             <kanban default_group_by="type">
                 <templates>

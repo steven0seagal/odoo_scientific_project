@@ -17,7 +17,6 @@
     <record model="ir.ui.view" id="experiment_list_view">
         <field name="name">scientific.experiment.list</field>
         <field name="model">scientific.experiment</field>
-        <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree decoration-danger="is_overdue" decoration-success="status=='completed'" decoration-muted="status=='cancelled'">
                 <field name="name"/>
@@ -41,7 +40,6 @@
     <record model="ir.ui.view" id="experiment_form_view">
         <field name="name">scientific.experiment.form</field>
         <field name="model">scientific.experiment</field>
-        <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
                 <header>

@@ -1,7 +1,7 @@
 
 {
     'name': 'Scientific Project Manager',
-    'version': '15.0.2.0.0',
+    'version': '18.0.1.0.0',
     'summary': 'Production-Ready Scientific Project Management with Dashboard & Analytics',
     'sequence': -99,
     'description': """
@@ -20,7 +20,7 @@
         - Document management with confidentiality levels
         - Email notifications and automated workflows
 
-        Version 15.0.2.0.0 Features:
+        Version 18.0.1.0.0 Features:
         - Professional dashboard with quick actions
         - 5 security groups with 65 access rules
         - 4 HTML email templates for notifications
@@ -31,8 +31,9 @@
         - Complete data validation (email, DOI, dates, budgets)
         - Enhanced UX with color-coded displays
         - Publication and data lifecycle management
+        - Updated for Odoo 18 compatibility
     """,
-    'category': 'Project',
+    'category': 'Productivity/Scientific',
     'author': 'Scientific Project Team',
     'website': 'www.example.com',
     'license': 'LGPL-3',
@@ -62,7 +63,7 @@
         'views/researcher_invitation_wizard.xml',
     ],
     'demo': [],
-    'qweb': [],
+    'assets': {},
     'installable': True,
     'application': True,
     'auto_install': False,

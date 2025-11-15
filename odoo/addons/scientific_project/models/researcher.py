@@ -2,7 +2,6 @@ from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 import re
 import base64
-import imghdr
 import string
 import secrets
 
@@ -70,6 +69,28 @@ class ScientificResearcher(models.Model):
                 if not re.match(pattern, record.email):
                     raise ValidationError(f"Invalid email address: {record.email}")
 
+    def _detect_image_format(self, image_data):
+        """Detect image format from file signature (magic numbers)"""
+        # Image format signatures
+        signatures = {
+            b'\x89PNG\r\n\x1a\n': 'png',
+            b'\xff\xd8\xff': 'jpeg',
+            b'GIF87a': 'gif',
+            b'GIF89a': 'gif',
+            b'BM': 'bmp',
+            b'RIFF': 'webp',  # WebP starts with RIFF
+        }
+
+        for signature, format_name in signatures.items():
+            if image_data.startswith(signature):
+                # Special check for WebP
+                if format_name == 'webp' and len(image_data) > 12:
+                    if image_data[8:12] == b'WEBP':
+                        return 'webp'
+                    continue
+                return format_name
+        return None
+
     @api.constrains('image', 'image_size')
     def _check_image_constraints(self):
         """Validate image size and format"""
@@ -88,7 +109,7 @@ class ScientificResearcher(models.Model):
                 # Validate image format
                 try:
                     image_data = base64.b64decode(record.image)
-                    image_format = imghdr.what(None, h=image_data)
+                    image_format = record._detect_image_format(image_data)
                     if image_format not in ALLOWED_IMAGE_FORMATS:
                         raise ValidationError(
                             f"Invalid image format '{image_format}'. "
