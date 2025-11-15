@@ -7,37 +7,72 @@
         <field name="arch" type="xml">
             <form string="Invite Researcher">
                 <sheet>
-                    <div class="oe_title">
-                        <h1>Invite New Researcher</h1>
+                    <div class="oe_title mb-3">
+                        <h1 class="mb-2">
+                            <i class="fa fa-user-plus text-primary me-2"/>
+                            Invite New Researcher
+                        </h1>
                         <p class="text-muted">
                             Send an invitation to a new researcher to join your team.
                             A user account will be created automatically and credentials will be sent via email.
                         </p>
                     </div>
-                    <group>
+
+                    <group string="Basic Information" class="mt-3">
                         <group>
-                            <field name="name" placeholder="e.g., Dr. Jane Smith"/>
-                            <field name="email" placeholder="jane.smith@university.edu" widget="email"/>
-                            <field name="type" widget="radio" options="{'horizontal': true}"/>
+                            <label for="name" string="Full Name" class="fw-bold"/>
+                            <field name="name" placeholder="e.g., Dr. Jane Smith" class="o_field_highlight"/>
+
+                            <label for="email" string="Email Address" class="fw-bold"/>
+                            <field name="email" placeholder="jane.smith@university.edu" widget="email" class="o_field_highlight"/>
                         </group>
                         <group>
+                            <label for="title" string="Academic Title"/>
                             <field name="title" placeholder="e.g., Dr., Prof., MSc."/>
+
+                            <label for="affiliation" string="Institution"/>
                             <field name="affiliation" placeholder="University or Institution"/>
-                            <field name="specialization" placeholder="e.g., Molecular Biology"/>
                         </group>
                     </group>
-                    <group>
-                        <field name="message" placeholder="Add a personal message to include in the invitation email (optional)..." nolabel="1"/>
+
+                    <group string="Role Assignment" class="mt-3">
+                        <field name="type" widget="radio" options="{'horizontal': false}" class="o_field_widget"/>
                     </group>
-                    <div class="alert alert-info" role="alert">
-                        <i class="fa fa-info-circle"/>
-                        <strong>Note:</strong> Only administrators and managers can send invitations to all roles.
-                        The invited researcher will receive an email with instructions to set their password.
+
+                    <group string="Additional Information" class="mt-3">
+                        <field name="specialization" placeholder="e.g., Molecular Biology, Genetics, Biochemistry"/>
+                    </group>
+
+                    <group string="Personal Message (Optional)" class="mt-3">
+                        <field name="message"
+                               placeholder="Add a personal welcome message to include in the invitation email..."
+                               nolabel="1"
+                               class="o_field_text"/>
+                    </group>
+
+                    <div class="alert alert-info mt-3" role="alert">
+                        <div class="d-flex align-items-start">
+                            <i class="fa fa-info-circle me-2 mt-1"/>
+                            <div>
+                                <strong>Important Information:</strong>
+                                <ul class="mb-0 mt-2">
+                                    <li>The invited researcher will receive an email with a password reset link</li>
+                                    <li>They can set their own password upon first login</li>
+                                    <li>Access permissions will be assigned based on the selected role</li>
+                                    <li>Only administrators and managers can send invitations</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </sheet>
                 <footer>
-                    <button name="action_send_invitation" string="Send Invitation" type="object" class="btn-primary"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <button name="action_send_invitation"
+                            string="Send Invitation"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
                 </footer>
             </form>
         </field>
