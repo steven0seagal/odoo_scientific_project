@@ -1,5 +1,10 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+import re
+import base64
+import imghdr
+import string
+import secrets
 
 class ScientificResearcher(models.Model):
     _name = 'scientific.researcher'
@@ -11,9 +16,11 @@ class ScientificResearcher(models.Model):
     name = fields.Char(string='Name', required=True, tracking=True,
                        help="Full name of the researcher")
     type = fields.Selection([
-        ('student', 'Student'),
-        ('professor', 'Professor'),
-        ('researcher', 'Researcher')
+        ('manager', 'Scientific Project Manager'),
+        ('pi', 'Principal Investigator'),
+        ('researcher', 'Scientific Project User'),
+        ('technician', 'Lab Technician'),
+        ('viewer', 'Scientific Project Viewer')
     ], string='Type', tracking=True, help="Type of researcher")
     title = fields.Char(string='Title', help="Academic or professional title")
     affiliation = fields.Char(string='Affiliation', help="Institution or organization")
@@ -123,9 +130,17 @@ class ScientificResearcher(models.Model):
 
             try:
                 # Determine user group based on researcher type
-                group_ref = 'scientific_project.group_scientific_researcher'
-                if researcher.type == 'professor':
-                    group_ref = 'scientific_project.group_scientific_manager'
+                role_group_map = {
+                    'manager': 'scientific_project.group_scientific_manager',
+                    'pi': 'scientific_project.group_scientific_pi',
+                    'researcher': 'scientific_project.group_scientific_researcher',
+                    'technician': 'scientific_project.group_scientific_technician',
+                    'viewer': 'scientific_project.group_scientific_observer',
+                }
+                group_ref = role_group_map.get(
+                    researcher.type,
+                    'scientific_project.group_scientific_researcher'
+                )
 
                 user_vals = {
                     'name': researcher.name,
@@ -147,14 +162,7 @@ class ScientificResearcher(models.Model):
 
         return researchers
 
-    @api.constrains('email')
-    def _check_email(self):
-        """Validate email format"""
-        import re
-        for record in self:
-            if record.email:
-                if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', record.email):
-                    raise ValidationError('Invalid email format!')
+
 class ScientificResearcherTags(models.Model):
     _name = 'scientific.tags'
     _description = 'Researcher Tags'
