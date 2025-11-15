@@ -32,9 +32,11 @@ class ResearcherInvitationWizard(models.TransientModel):
         help="Valid email address for sending the invitation"
     )
     type = fields.Selection([
-        ('student', 'Student'),
-        ('researcher', 'Researcher'),
-        ('professor', 'Professor')
+        ('manager', 'Scientific Project Manager'),
+        ('pi', 'Principal Investigator'),
+        ('researcher', 'Scientific Project User'),
+        ('technician', 'Lab Technician'),
+        ('viewer', 'Scientific Project Viewer')
     ],
         string='Role',
         required=True,
