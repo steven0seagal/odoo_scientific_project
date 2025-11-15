@@ -187,7 +187,7 @@ class ResearcherInvitationWizard(models.TransientModel):
         if not researcher.user_id:
             return
 
-        # Get email template
+        # Get email template with sudo to ensure access
         template = self.env.ref('scientific_project.email_template_researcher_invitation',
                                raise_if_not_found=False)
 
@@ -201,8 +201,8 @@ class ResearcherInvitationWizard(models.TransientModel):
                 'login_url': self.env['ir.config_parameter'].sudo().get_param('web.base.url'),
             }
 
-            # Send email
-            template.with_context(ctx).send_mail(
+            # Send email with sudo to ensure proper access rights
+            template.sudo().with_context(ctx).send_mail(
                 researcher.id,
                 force_send=True,
                 email_values={'email_to': researcher.email}
